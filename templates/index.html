@@ -16,7 +16,15 @@
     <script src="../static/main.js" defer></script>
 </head>
 <body>
-<header>
+<header class="top-bar">
+    <div class="left-group">
+        <input type="text" placeholder="Search..." class="search-input">
+        <select class="filter-select">
+            <option value="rating">Rating</option>
+            <option value="Mostreviews">Most Reviews</option>
+        </select>
+    </div>
+
     <div id="login-container">
         <button id="login-button">Login</button>
     </div>

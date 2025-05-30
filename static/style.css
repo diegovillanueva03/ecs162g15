@@ -11,6 +11,34 @@ main, body, html {
 .hidden {
     display: none;
 }
+/*Header section  */
+.top-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: aliceblue;
+    border-bottom: 1px solid black;
+}
+
+.search-input{
+    height:23px;
+    width: 250px;
+    font-size: large;
+    border: 1px solid black;
+    border-radius: 4px;
+    border-width: 1px;
+}
+
+.filter-select{
+        height: 25px;
+        width: 150px;
+        font-size: large;
+        border: 1px solid black;
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: black;
+}
 
 @media screen and (min-width: 768px) {
     .column-flex-container {
