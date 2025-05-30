@@ -1,0 +1,64 @@
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    font-size: 1.3rem; /*Base Font Size */
+    padding: 0 6rem; /*padding*/
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+header, footer {
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0 2%;
+    box-sizing: border-box;
+}
+
+header {
+    border-bottom: 1px solid #e2e2e2;
+    margin-top: 1rem;
+}
+
+main {
+    width: 100%;
+    padding: 0 2%;
+    box-sizing: border-box;
+}
+
+
+.hidden {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .column-flex-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    #footer-nav ul {
+        display: flex;
+    }
+
+    .column {
+        flex: 0 0 calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .column {
+        flex: 0 0 calc(33.33% - 1rem);
+        max-width: calc(33.33% - 1rem);
+    }
+}
