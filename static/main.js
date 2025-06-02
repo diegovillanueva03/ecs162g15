@@ -8,18 +8,60 @@
 
  */
 
+const SILO_COORDS = [38.539, -121.753];
+const BASE_ZOOM = 15;
+const ENHANCED_ZOOM = 19;
 
+let cached_coords;
+let map;
+let location_dot;
 
-let current_coords;
+function initMap(origin, zoom) {
+    if(map == null) {
+        map = L.map('map', {
+            center: origin,
+            zoom: zoom
+        });
+    } else {
+        map.setView(origin, zoom, {
+            animate: true,
+        });
+    }
 
-async function setCurrentCoordinates() {
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: ENHANCED_ZOOM,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+}
+
+async function loadCurrentCoordinates() {
         return new Promise((resolve, reject) => {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(resolve, reject);
+                navigator.geolocation.getCurrentPosition((position) => {
+                    resolve([position.coords.latitude, position.coords.longitude]);
+                }, reject);
             } else {
                 reject(new Error("Geolocation API is not supported by this browser."));
             }
         });
+}
+
+function initCurrentLocation() {
+    loadCurrentCoordinates().then((coords) => {
+        if(location_dot != null)
+            map.removeLayer(location_dot);
+        location_dot = L.circleMarker(coords, {
+            interactive: false,
+            color: '#ffffff',
+            fillColor: '#3388ff',
+            fillOpacity: 1.0,
+        }).addTo(map);
+        map.setView(coords, ENHANCED_ZOOM, {
+            animate: true,
+        });
+    }).catch((error) => {
+        console.log("Could not get location coordinates", error);
+    });
 }
 
 (function () {
@@ -27,26 +69,14 @@ async function setCurrentCoordinates() {
 
     async function init() {
 
-        let map = L.map('map', {
-            center: [38.539, -121.753],
-            zoom: 15
-        });
+        //Initialize Map to Default of Silo Coordinates with base zoom
+        initMap(SILO_COORDS, BASE_ZOOM);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        //Set center to current location if available and zoom.
+        //Also marks current location with an Apple Maps-like circle
+        initCurrentLocation();
 
-        setCurrentCoordinates()
-            .then((position) => {
-                current_coords = position.coords;
-                console.log(current_coords.latitude);
-                console.log(current_coords.longitude);
-                map.setView([current_coords.latitude, current_coords.longitude]);
-            })
-            .catch((error) => {
-                console.log("Could not get location coordinates", error);
-            });
+
 
             //open sidebar
             const connected = document.getElementById("sidebar-tester");
