@@ -28,12 +28,17 @@ async function loadCurrentCoordinates() {
 
 function initCurrentLocation() {
     loadCurrentCoordinates().then((coords) => {
-        map.setView(coords);
         if(location_dot != null)
             map.removeLayer(location_dot);
         location_dot = L.circleMarker(coords, {
             interactive: false,
+            color: '#ffffff',
+            fillColor: '#3388ff',
+            fillOpacity: 1.0,
         }).addTo(map);
+        map.setView(coords, 20, {
+            animate: true,
+        });
     }).catch((error) => {
         console.log("Could not get location coordinates", error);
     });
