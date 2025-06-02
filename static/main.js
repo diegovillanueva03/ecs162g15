@@ -15,6 +15,7 @@ const ENHANCED_ZOOM = 19;
 let cached_coords;
 let map;
 let location_dot;
+let restroom_markers = [];
 
 function initMap(origin, zoom) {
     if(map == null) {
@@ -64,6 +65,23 @@ function initCurrentLocation() {
     });
 }
 
+function addRestroomMarker(coords) {
+    for(let m of restroom_markers) {
+        let latLng = m.getLatLng();
+        if(latLng.equals(coords))
+            return null;
+    }
+
+    let marker = L.marker(coords, {
+        riseOnHover: true,
+
+    }).bindPopup('<header>Restroom Marker Example</header><p>Rating: 0/5<br/>Reviews:</p>',
+        {});
+    restroom_markers.push(marker);
+    marker.addTo(map);
+    return marker;
+}
+
 (function () {
     window.addEventListener("load", init);
 
@@ -76,7 +94,10 @@ function initCurrentLocation() {
         //Also marks current location with an Apple Maps-like circle
         initCurrentLocation();
 
-
+        map.on('dblclick', function(e) {
+            addRestroomMarker(e.latlng);
+            console.log(e.latlng);
+        });
 
 
     }
