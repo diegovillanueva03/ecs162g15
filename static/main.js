@@ -10,16 +10,33 @@
 
 
 
-let current_coords;
+let cached_coords;
+let map;
+let location_dot;
 
-async function setCurrentCoordinates() {
+async function loadCurrentCoordinates() {
         return new Promise((resolve, reject) => {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(resolve, reject);
+                navigator.geolocation.getCurrentPosition((position) => {
+                    resolve([position.coords.latitude, position.coords.longitude]);
+                }, reject);
             } else {
                 reject(new Error("Geolocation API is not supported by this browser."));
             }
         });
+}
+
+function initCurrentLocation() {
+    loadCurrentCoordinates().then((coords) => {
+        map.setView(coords);
+        if(location_dot != null)
+            map.removeLayer(location_dot);
+        location_dot = L.circleMarker(coords, {
+            interactive: false,
+        }).addTo(map);
+    }).catch((error) => {
+        console.log("Could not get location coordinates", error);
+    });
 }
 
 (function () {
@@ -27,7 +44,7 @@ async function setCurrentCoordinates() {
 
     async function init() {
 
-        let map = L.map('map', {
+        map = L.map('map', {
             center: [38.539, -121.753],
             zoom: 15
         });
@@ -37,16 +54,7 @@ async function setCurrentCoordinates() {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        setCurrentCoordinates()
-            .then((position) => {
-                current_coords = position.coords;
-                console.log(current_coords.latitude);
-                console.log(current_coords.longitude);
-                map.setView([current_coords.latitude, current_coords.longitude]);
-            })
-            .catch((error) => {
-                console.log("Could not get location coordinates", error);
-            });
+        initCurrentLocation();
 
 
     }
