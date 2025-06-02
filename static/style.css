@@ -35,3 +35,36 @@ main, body, html {
         max-width: calc(33.33% - 1rem);
     }
 }
+
+/* sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 450px;
+    height: 100%;
+    background: #f9f9f9;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    transition: right 0.3s ease;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.close-btn {
+    font-size: 28px;
+    float: right;
+    cursor: pointer;
+}
+
+.open-sb-btn{
+    padding: 5;
+}
+
+body {
+    font-family: Georgia;
+}

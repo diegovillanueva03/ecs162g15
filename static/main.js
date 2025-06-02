@@ -99,6 +99,19 @@ function addRestroomMarker(coords) {
             console.log(e.latlng);
         });
 
+            //open sidebar
+            const connected = document.getElementById("sidebar-tester");
+            if(connected){
+                connected.style.display = "inline";
+                connected.addEventListener("click", () => {
+                    document.getElementById("account-sidebar").classList.add("show");
+                    document.getElementById("user-email").textContent = `${user.email}`;
+            })};
+
+            //close sidebar
+            document.getElementById("close-sidebar").addEventListener("click", () => {
+            document.getElementById("account-sidebar").classList.remove("show");
+        });
 
     }
 })();
