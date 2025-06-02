@@ -8,11 +8,31 @@
 
  */
 
-
+const SILO_COORDS = [38.539, -121.753];
+const BASE_ZOOM = 15;
+const ENHANCED_ZOOM = 19;
 
 let cached_coords;
 let map;
 let location_dot;
+
+function initMap(origin, zoom) {
+    if(map == null) {
+        map = L.map('map', {
+            center: origin,
+            zoom: zoom
+        });
+    } else {
+        map.setView(origin, zoom, {
+            animate: true,
+        });
+    }
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: ENHANCED_ZOOM,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+}
 
 async function loadCurrentCoordinates() {
         return new Promise((resolve, reject) => {
@@ -36,7 +56,7 @@ function initCurrentLocation() {
             fillColor: '#3388ff',
             fillOpacity: 1.0,
         }).addTo(map);
-        map.setView(coords, 20, {
+        map.setView(coords, ENHANCED_ZOOM, {
             animate: true,
         });
     }).catch((error) => {
@@ -49,17 +69,14 @@ function initCurrentLocation() {
 
     async function init() {
 
-        map = L.map('map', {
-            center: [38.539, -121.753],
-            zoom: 15
-        });
+        //Initialize Map to Default of Silo Coordinates with base zoom
+        initMap(SILO_COORDS, BASE_ZOOM);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
+        //Set center to current location if available and zoom.
+        //Also marks current location with an Apple Maps-like circle
         initCurrentLocation();
+
+
 
 
     }
