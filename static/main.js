@@ -4,6 +4,7 @@
 
     https://leafletjs.com/examples/quick-start/
     https://www.w3schools.com/html/html5_geolocation.asp
+    https://wiki.openstreetmap.org/wiki/Overpass_API
 
 
  */
@@ -74,11 +75,57 @@ function addRestroomMarker(coords) {
 
     let marker = L.marker(coords, {
         riseOnHover: true,
+    }).addTo(map);
 
-    }).bindPopup('<header>Restroom Marker Example</header><p>Rating: 0/5<br/>Reviews:</p>',
-        {});
     restroom_markers.push(marker);
-    marker.addTo(map);
+
+    const { lat, lng } = coords;
+
+    marker.bindPopup('<header>Loading building name...</header>').openPopup();
+
+    fetch('/get-building-name', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ lat, lng })
+    })
+    .then(res => res.json())
+    .then(data => {
+        let popupText = '';
+        if (data.elements && data.elements.length > 0) {
+            let closestElement = null;
+            let closestDistance = Infinity;
+            //loop through response
+            for (const obj of data.elements) {
+                const objLat = obj.center?.lat;
+                const objLng = obj.center?.lon;
+                if (objLat == null || objLng == null) continue;
+
+                //distance formula to get closest building using its center (not exact)
+                const dist = ((objLat - lat) ** 2 + (objLng - lng) ** 2) ** (1 / 2);
+
+                if (dist < closestDistance) {
+                    closestDistance = dist;
+                    closestElement = obj;
+                }
+            }
+            //get building/place name
+            const name = closestElement?.tags?.name
+                || closestElement?.tags?.place;
+
+            popupText = `<header>${name}</header>
+                         <p>Rating: 0/5<br/>Reviews:</p>`;
+        } else {
+            popupText = `<header>No name found</header>`;
+        }
+        marker.setPopupContent(popupText);
+    })
+    .catch(error => {
+        console.log("Error retrieving location:", error);
+        marker.setPopupContent(`<header>Error retrieving location</header>`);
+    });
+
     return marker;
 }
 

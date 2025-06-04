@@ -13,7 +13,9 @@ from bson import ObjectId
 from bson.errors import InvalidId
 
 # Sources:
-# 
+# https://wiki.openstreetmap.org/wiki/Overpass_API
+# query nearby buildings using overpass api:
+# https://stackoverflow.com/questions/76458081/overpass-around-to-find-addresses-in-certain-radius-from-a-coordinate
 # 
 # 
 # 
@@ -47,6 +49,29 @@ oauth.register(
     device_authorization_endpoint="http://dex:5556/device/code",
     client_kwargs={'scope': 'openid email profile'}
 )
+
+@app.route('/get-building-name', methods=['POST'])
+def get_building_name():
+    data = request.get_json()
+    lat = data.get('lat')
+    lng = data.get('lng')
+    radius = 25
+
+    #query overpass api to get building name
+    query = f"""
+        [out:json];
+        (
+            way(around:{radius},{lat},{lng})[building][name];
+            relation(around:{radius},{lat},{lng})[building][name];
+        );
+        out center;
+    """
+    response = requests.post(
+        "https://overpass-api.de/api/interpreter",
+        data={"data": query},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    return jsonify(response.json())
 
 @app.route('/')
 def home():
