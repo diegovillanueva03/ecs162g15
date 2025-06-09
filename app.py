@@ -80,6 +80,9 @@ def get_building_name():
 def home():
     return render_template('index.html')
 
+# TODO: Need login endpoint
+# TODO: Need logout endpoint
+
 @app.route('/add-restroom-location', methods=['POST'])
 def add_restroom_location():
     user = session.get('user')
@@ -138,6 +141,17 @@ def add_restroom_review():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def remove_restroom_location():
+    # TODO: Remove restroom location and all associated reviews
+    pass
+
+
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def remove_restroom_review():
+    # TODO: Remove restroom review either as a moderator
+    #  or unprivileged user (Can only remove their review)
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
