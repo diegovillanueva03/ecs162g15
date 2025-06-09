@@ -22,11 +22,22 @@
         <h1>
             RESTROOM REVIEW
         </h1>
-        <img src="../static/images/ucdavis_logo.png" alt="UC Davis logo" id="logo">
+        <img src="../static/images/ucd_cow_logo.jpg" alt="UC Davis logo" id="logo">
     </div>
     <nav>
+        <div class="left-group">
+            <input type="text" placeholder="Search..." class="search-input">
+            <div id="filter">Filter by:</div>
+            <select class="filter-select">
+                <option value="rating">Rating</option>
+                <option value="rating">Gender</option>
+                <option value="rating">Accessibility</option>
+                <option value="Mostreviews">Most Reviews</option>
+            </select>
+        </div>
+        
         <div id="login-container">
-            <button id="login-button">LOGIN</button>
+            <button id="login-button">LOG IN</button>
         </div>
     </nav>
 </header>

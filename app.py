@@ -13,7 +13,9 @@ from bson import ObjectId
 from bson.errors import InvalidId
 
 # Sources:
-# 
+# https://wiki.openstreetmap.org/wiki/Overpass_API
+# query nearby buildings using overpass api:
+# https://stackoverflow.com/questions/76458081/overpass-around-to-find-addresses-in-certain-radius-from-a-coordinate
 # 
 # 
 # 
@@ -26,16 +28,19 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-oauth = OAuth(app)
-nonce = generate_token()
 
 
-mongo_uri = os.getenv("MONGO_URI", "mongodb://mongo:27017")
-client = MongoClient(mongo_uri)
-db = client["mydatabase"]
-comments_collection = db["comments"]
 
-oauth.register(
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongo:27017")
+MONGO_CLIENT = MongoClient(MONGO_URI)
+db = MONGO_CLIENT["restroom_review"]
+LOCATIONS_COLLECTION = db["restrooms"]
+REVIEWS_COLLECTION = db["reviews"]
+
+OAUTH = OAuth(app)
+NONCE = generate_token()
+
+OAUTH.register(
     name=os.getenv('OIDC_CLIENT_NAME'),
     client_id=os.getenv('OIDC_CLIENT_ID'),
     client_secret=os.getenv('OIDC_CLIENT_SECRET'),
@@ -48,11 +53,105 @@ oauth.register(
     client_kwargs={'scope': 'openid email profile'}
 )
 
+@app.route('/get-building-name', methods=['POST'])
+def get_building_name():
+    data = request.get_json()
+    lat = data.get('lat')
+    lng = data.get('lng')
+    radius = 25
+
+    #query overpass api to get building name
+    query = f"""
+        [out:json];
+        (
+            way(around:{radius},{lat},{lng})[building][name];
+            relation(around:{radius},{lat},{lng})[building][name];
+        );
+        out center;
+    """
+    response = requests.post(
+        "https://overpass-api.de/api/interpreter",
+        data={"data": query},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    return jsonify(response.json())
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# TODO: Need login endpoint
+# TODO: Need logout endpoint
 
+@app.route('/add-restroom-location', methods=['POST'])
+def add_restroom_location():
+    user = session.get('user')
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+    email = user.get("email")
+
+    try:
+        data = request.get_json()
+        lat = data.get("lat")
+        lng = data.get("lng")
+
+        if not lat or not lng:
+            return jsonify({'error': 'Missing headline or content'}), 400
+
+        location = {
+            "lat": lat,
+            "lng": lng,
+            "creator-email": email,
+            "timestamp": datetime.now(timezone.utc)
+        }
+        result = LOCATIONS_COLLECTION.insert_one(location)
+        location['_id'] = str(result.inserted_id)
+        return jsonify(location), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def add_restroom_review():
+    user = session.get('user')
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+    email = user.get("email")
+
+    try:
+        data = request.get_json()
+        locationid = data.get("locationid")
+        username = data.get("username")
+        rating = data.get("rating")
+        content = data.get("content")
+
+        if not rating or not content:
+            return jsonify({'error': 'Missing rating or content'}), 400
+
+        review = {
+            "locationid": locationid,
+            "username": username,
+            "rating": rating,
+            "content": content,
+            "creator-email": email,
+            "timestamp": datetime.now(timezone.utc)
+        }
+        result = REVIEWS_COLLECTION.insert_one(review)
+        review['_id'] = str(result.inserted_id)
+        return jsonify(review), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def remove_restroom_location():
+    # TODO: Remove restroom location and all associated reviews
+    pass
+
+
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def remove_restroom_review():
+    # TODO: Remove restroom review either as a moderator
+    #  or unprivileged user (Can only remove their review)
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
