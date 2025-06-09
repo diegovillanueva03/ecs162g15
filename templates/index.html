@@ -41,19 +41,44 @@
             <span id="close-sidebar" class="close-btn">&times;</span>
             <strong><h1 id="Title">Reviews</h1></strong>
             <h2 id="location-name">Placeholder Name</h2>
-            <p id="total-review-rating">3.4</p>
+            <div id="avg-review">
+                <!-- change to connect to database -->
+                <p id="total-review-rating">3.4</p>
+                <p>*****</p>
+                <p id="number-of-reviews">5 review</p> 
+            </div>
+            
             <div id="location-image">
-                <img src="ucd graduate school of management.jpg" alt="placeholder image">
+                <img src="./images/ucd graduate school of management.jpg" alt="placeholder image">
             </div>
             <div id="cal-review-box">
+                <!-- change to connect to db -->
                 <div id="cleanliness-review">
                     <h3>Cleanliness</h3>
+                    <p>*****</p>
                 </div>
                 <div id="accessibility-review">
                     <h3>Accessibility</h3>
+                    <p>*****</p>
                 </div>
                 <div id="location-review">
                     <h3>Location</h3>
+                    <p>*****</p>
+                </div>
+            </div>
+            <h3 id="community-reviews-title">Community Reviews</h3>
+            <!-- FIXME: use mapping and pull from database -->
+            <div id="user-review-section">
+                <div id="user-info">
+                    <!-- pfp image from https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ADefault_pfp.svg&psig=AOvVaw0LsorKCmVbk51fgyx7C7R9&ust=1749158421969000&source=images&cd=vfe&opi=89978449&ved=0CBgQ3YkBahcKEwjA9dWH2diNAxUAAAAAHQAAAAAQHg -->
+                    <img src="./images/default_pfp.png" alt="default profile picture">
+                    <div id="user-name-location">
+                        <p id="name">Jane Doe</p>
+                        <p id="location">Davis,CA</p>
+                    </div>
+                    <h4 id="review-paragraph">
+                        loren ipsum, this bathroom is so nice. highly recommend. it is a little far off campus, though.
+                    </h4>
                 </div>
             </div>
         </div>
