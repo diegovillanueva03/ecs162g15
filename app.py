@@ -28,16 +28,19 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-oauth = OAuth(app)
-nonce = generate_token()
 
 
-mongo_uri = os.getenv("MONGO_URI", "mongodb://mongo:27017")
-client = MongoClient(mongo_uri)
-db = client["mydatabase"]
-comments_collection = db["comments"]
 
-oauth.register(
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongo:27017")
+MONGO_CLIENT = MongoClient(MONGO_URI)
+db = MONGO_CLIENT["restroom_review"]
+LOCATIONS_COLLECTION = db["restrooms"]
+REVIEWS_COLLECTION = db["reviews"]
+
+OAUTH = OAuth(app)
+NONCE = generate_token()
+
+OAUTH.register(
     name=os.getenv('OIDC_CLIENT_NAME'),
     client_id=os.getenv('OIDC_CLIENT_ID'),
     client_secret=os.getenv('OIDC_CLIENT_SECRET'),
@@ -77,6 +80,63 @@ def get_building_name():
 def home():
     return render_template('index.html')
 
+@app.route('/add-restroom-location', methods=['POST'])
+def add_restroom_location():
+    user = session.get('user')
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+    email = user.get("email")
+
+    try:
+        data = request.get_json()
+        lat = data.get("lat")
+        lng = data.get("lng")
+
+        if not lat or not lng:
+            return jsonify({'error': 'Missing headline or content'}), 400
+
+        location = {
+            "lat": lat,
+            "lng": lng,
+            "creator-email": email,
+            "timestamp": datetime.now(timezone.utc)
+        }
+        result = LOCATIONS_COLLECTION.insert_one(location)
+        location['_id'] = str(result.inserted_id)
+        return jsonify(location), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+def add_restroom_review():
+    user = session.get('user')
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+    email = user.get("email")
+
+    try:
+        data = request.get_json()
+        locationid = data.get("locationid")
+        username = data.get("username")
+        rating = data.get("rating")
+        content = data.get("content")
+
+        if not rating or not content:
+            return jsonify({'error': 'Missing rating or content'}), 400
+
+        review = {
+            "locationid": locationid,
+            "username": username,
+            "rating": rating,
+            "content": content,
+            "creator-email": email,
+            "timestamp": datetime.now(timezone.utc)
+        }
+        result = REVIEWS_COLLECTION.insert_one(review)
+        review['_id'] = str(result.inserted_id)
+        return jsonify(review), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':
