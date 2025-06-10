@@ -183,6 +183,11 @@ def view_restroom(restroom_id):
     except InvalidId:
         return "Invalid ID", 400
 
+@app.route('/new-restroom-sidebar')
+def new_restroom_sidebar():
+    return render_template('new_restroom.j2')  # or .html if you're using plain HTML
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
