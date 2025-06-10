@@ -159,7 +159,7 @@ async function getBuildingName(lat, lng) {
                 //get building/place name
                 const name = closestElement?.tags?.name
                     || closestElement?.tags?.place;
-
+                
                 popupText = `<header>${name}</header>
                          <p>Rating: 0/5<br/>Reviews:</p>`;
             } else {
@@ -172,8 +172,6 @@ async function getBuildingName(lat, lng) {
             return { name: "Error", popupText: "<header>Error retrieving location</header>" };
         });
 }
-
-
 
 (function () {
     window.addEventListener("load", init);
@@ -199,7 +197,6 @@ async function getBuildingName(lat, lng) {
             .catch(err => {
                 console.error("Failed to load restrooms:", err);
             });
-
 
         map.on('dblclick', function (e) {
             addRestroomMarker(e.latlng);
@@ -228,6 +225,33 @@ async function getBuildingName(lat, lng) {
             loginButton.addEventListener("click", () => {
                 window.location.href = "/login";
             });
+        }
+
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.addEventListener("click", () => {
+                window.location.href = "/logout";
+            });
+        }
+
+        const account_button = document.getElementById("account");
+        const dropdown = document.getElementById("dropdown");
+        const carat = document.getElementById("carat");
+        if (account_button) {
+            account_button.addEventListener("click", () => {
+                if (dropdown.style.visibility == 'hidden') {
+                    dropdown.style.visibility = 'visible';
+                    carat.src = "../static/images/up_carat.png";
+                } else {
+                    dropdown.style.visibility = 'hidden';
+                    carat.src = "../static/images/down_carat.png"
+                }
+            })
+        }
+
+        const right_corner = document.getElementById("account-dropdown");
+        if(!user.email) {
+            right_corner.innerHTML = '<button id="login-button" class="button">LOG IN</button>';
         }
     }
 })();
