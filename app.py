@@ -106,7 +106,7 @@ def add_restroom_location():
             "lng": lng,
             "description": description,
             "creator-email": email,
-            "building-name": name
+            "building-name": name,
             "timestamp": datetime.now(timezone.utc)
         }
         result = LOCATIONS_COLLECTION.insert_one(location)
