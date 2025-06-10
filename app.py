@@ -90,18 +90,23 @@ def add_restroom_location():
         return jsonify({'error': 'Unauthorized'}), 401
     email = user.get("email")
 
+
     try:
         data = request.get_json()
         lat = data.get("lat")
         lng = data.get("lng")
+        name = data.get("name")
+        description = data.get("description")
 
-        if not lat or not lng:
-            return jsonify({'error': 'Missing headline or content'}), 400
+        if not lat or not lng or not description or not name:
+            return jsonify({'error': 'Missing headline, content, name, or description'}), 400
 
         location = {
             "lat": lat,
             "lng": lng,
+            "description": description,
             "creator-email": email,
+            "building-name": name
             "timestamp": datetime.now(timezone.utc)
         }
         result = LOCATIONS_COLLECTION.insert_one(location)
@@ -173,10 +178,15 @@ def view_restroom(restroom_id):
             restroom['_id'] = str(restroom['_id'])
             for r in reviews:
                 r['_id'] = str(r['_id'])
-            return render_template('restroom.html', restroom=restroom, reviews=reviews)
+            return render_template('restroom.j2', restroom=restroom, reviews=reviews)
         return "Not found", 404
     except InvalidId:
         return "Invalid ID", 400
+
+@app.route('/new-restroom-sidebar')
+def new_restroom_sidebar():
+    return render_template('new_restroom.j2')  # or .html if you're using plain HTML
+
 
 
 if __name__ == '__main__':

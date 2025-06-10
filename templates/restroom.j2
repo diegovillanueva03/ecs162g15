@@ -1,0 +1,12 @@
+<!-- templates/restroom.html -->
+<h1>{{ restroom.description or "Unnamed Restroom" }}</h1>
+<img src="{{ restroom.image }}" style="max-width:400px">
+<p>Latitude: {{ restroom.lat }}, Longitude: {{ restroom.lng }}</p>
+<p>Submitted by: {{ restroom["creator-email"] }}</p>
+
+<h2>Reviews</h2>
+<ul>
+    {% for r in reviews %}
+    <li><strong>{{ r.username }}</strong>: {{ r.rating }}/5 - {{ r.content }}</li>
+    {% endfor %}
+</ul>
