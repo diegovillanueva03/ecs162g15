@@ -222,6 +222,13 @@ async function getBuildingName(lat, lng) {
                 map.closePopup();
             }
         });
+
+        const loginButton = document.getElementById("login-button");
+        if (loginButton) {
+            loginButton.addEventListener("click", () => {
+                window.location.href = "/login";
+            });
+        }
     }
 })();
 

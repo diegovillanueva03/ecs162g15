@@ -80,8 +80,32 @@ def get_building_name():
 def home():
     return render_template('index.html')
 
-# TODO: Need login endpoint
-# TODO: Need logout endpoint
+@app.route('/login')
+def login():
+    session['nonce'] = NONCE
+    redirect_uri = 'http://localhost:8000/authorize'
+    oauth_client = OAUTH.create_client(os.getenv('OIDC_CLIENT_NAME'))
+    return oauth_client.authorize_redirect(redirect_uri, nonce=NONCE)
+
+@app.route('/authorize')
+def authorize():
+    oauth_client = OAUTH.create_client(os.getenv('OIDC_CLIENT_NAME'))
+    token = oauth_client.authorize_access_token()
+    nonce = session.get('nonce')
+    user_info = oauth_client.parse_id_token(token, nonce=nonce)
+    session['user'] = user_info
+    return redirect('/')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.route('/user')
+def get_user():
+    user = session.get('user')
+    if user:
+        return jsonify(user)
 
 @app.route('/add-restroom-location', methods=['POST'])
 def add_restroom_location():
