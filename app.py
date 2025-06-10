@@ -106,6 +106,7 @@ def get_user():
     user = session.get('user')
     if user:
         return jsonify(user)
+    return jsonify({"error": "Unauthorized"}), 401
 
 @app.route('/add-restroom-location', methods=['POST'])
 def add_restroom_location():
