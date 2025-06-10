@@ -66,7 +66,8 @@ function initCurrentLocation() {
     });
 }
 
-function addRestroomMarker(coords) {
+function addRestroomMarker(loc, isNew = false) {
+    const coords = [loc.lat, loc.lng]
     for (let m of restroom_markers) {
         let latLng = m.getLatLng();
         if (latLng.equals(coords))
@@ -93,6 +94,16 @@ function addRestroomMarker(coords) {
         if (sidebar && !sidebar.classList.contains("show")) {
             sidebar.classList.add("show");
         }
+
+        fetch(`/restroom/${loc._id}/sidebar`)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("account-sidebar").innerHTML = html;
+            })
+            .catch(err => {
+                console.error("Failed to load sidebar:", err);
+                document.getElementById("account-sidebar").innerHTML = "<p>Error loading info.</p>";
+            });
     });
 
     //close sidebar when popup is closed
@@ -163,7 +174,7 @@ function addRestroomMarker(coords) {
             .then(data => {
                 for (const loc of data) {
                     if (loc.lat != null && loc.lng != null) {
-                        addRestroomMarker([loc.lat, loc.lng]);
+                        addRestroomMarker(loc);
                     }
                 }
             })
@@ -171,12 +182,12 @@ function addRestroomMarker(coords) {
                 console.error("Failed to load restrooms:", err);
             });
 
+
         map.on('dblclick', function (e) {
             addRestroomMarker(e.latlng);
             console.log(e.latlng);
         });
 
-        //open sidebar
         const connected = document.getElementById("sidebar-tester");
         if (connected) {
             connected.style.display = "inline";
@@ -193,9 +204,9 @@ function addRestroomMarker(coords) {
                 map.closePopup();
             }
         });
-
     }
 })();
+
 
 if (typeof module !== 'undefined') {
     module.exports = {
