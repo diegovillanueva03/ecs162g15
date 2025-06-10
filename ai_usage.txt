@@ -1,0 +1,19 @@
+1. What AI tool did you use?
+
+
+ChatGPT
+
+2. How did you use it? What kind of questions did you ask? (include links to your conversation if applicable)
+
+We used ChatGPT for a few things:
+
+
+A question about Jinja template best practices:
+https://chatgpt.com/share/6847c84d-7890-8005-9b46-8b8ef6c81040
+
+Creating our mongo database (gave it a sample db json format and had it find UCD bathroom locations):
+
+
+3. How much did it help you? How helpful and accurate was it?
+
+AI was somewhat useful for this project. It enabled me to quickly find resources to learn the stack for this project. Using Gemini's API was fun!
