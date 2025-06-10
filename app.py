@@ -90,18 +90,23 @@ def add_restroom_location():
         return jsonify({'error': 'Unauthorized'}), 401
     email = user.get("email")
 
+
     try:
         data = request.get_json()
         lat = data.get("lat")
         lng = data.get("lng")
+        name = data.get("name")
+        description = data.get("description")
 
-        if not lat or not lng:
-            return jsonify({'error': 'Missing headline or content'}), 400
+        if not lat or not lng or not description or not name:
+            return jsonify({'error': 'Missing headline, content, name, or description'}), 400
 
         location = {
             "lat": lat,
             "lng": lng,
+            "description": description,
             "creator-email": email,
+            "building-name": name
             "timestamp": datetime.now(timezone.utc)
         }
         result = LOCATIONS_COLLECTION.insert_one(location)

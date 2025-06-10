@@ -90,27 +90,41 @@ function addRestroomMarker(loc, isNew = false) {
         sidebar.classList.add("show");
     }
 
-    marker.on('popupopen', () => {
-        if (sidebar && !sidebar.classList.contains("show")) {
-            sidebar.classList.add("show");
-        }
+    if (!isNew && loc._id) {
+        marker.on('popupopen', () => {
+            if (sidebar && !sidebar.classList.contains("show")) {
+                sidebar.classList.add("show");
+            }
 
-        fetch(`/restroom/${loc._id}/sidebar`)
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById("account-sidebar").innerHTML = html;
-            })
-            .catch(err => {
-                console.error("Failed to load sidebar:", err);
-                document.getElementById("account-sidebar").innerHTML = "<p>Error loading info.</p>";
-            });
-    });
+            fetch(`/restroom/${loc._id}/sidebar`)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("account-sidebar").innerHTML = html;
+                })
+                .catch(err => {
+                    console.error("Failed to load sidebar:", err);
+                    document.getElementById("account-sidebar").innerHTML = "<p>Error loading info.</p>";
+                });
+        });
+    }
 
     //close sidebar when popup is closed
     marker.on('popupclose', () => {
         document.getElementById("account-sidebar").classList.remove("show");
     });
 
+    getBuildingName(lat, lng).then(({ name, popupText }) => {
+        marker.name = name;
+        marker.setPopupContent(popupText);
+    });
+
+
+
+    return marker;
+}
+
+
+async function getBuildingName(lat, lng) {
     fetch('/get-building-name', {
         method: "POST",
         headers: {
@@ -147,15 +161,15 @@ function addRestroomMarker(loc, isNew = false) {
             } else {
                 popupText = `<header>No name found</header>`;
             }
-            marker.setPopupContent(popupText);
+            return { name, popupText };
         })
         .catch(error => {
             console.log("Error retrieving location:", error);
-            marker.setPopupContent(`<header>Error retrieving location</header>`);
+            return { name: "Error", popupText: "<header>Error retrieving location</header>" };
         });
-
-    return marker;
 }
+
+
 
 (function () {
     window.addEventListener("load", init);
@@ -174,7 +188,7 @@ function addRestroomMarker(loc, isNew = false) {
             .then(data => {
                 for (const loc of data) {
                     if (loc.lat != null && loc.lng != null) {
-                        addRestroomMarker(loc);
+                        addNewRestroomMarker(loc);
                     }
                 }
             })
@@ -186,7 +200,7 @@ function addRestroomMarker(loc, isNew = false) {
         map.on('dblclick', function (e) {
             addRestroomMarker(e.latlng);
             console.log(e.latlng);
-        });
+        }, true);
 
         const connected = document.getElementById("sidebar-tester");
         if (connected) {
@@ -206,6 +220,56 @@ function addRestroomMarker(loc, isNew = false) {
         });
     }
 })();
+
+function addNewRestroomMarker(loc) {
+    const marker = addRestroomMarker(loc);
+
+    if (!marker) return;
+
+    const sidebar = document.getElementById("account-sidebar");
+    if (sidebar && !sidebar.classList.contains("show")) {
+        sidebar.classList.add("show");
+    }
+
+    fetch('/new-restroom-sidebar')
+        .then(res => res.text())
+        .then(html => {
+            sidebar.innerHTML = html;
+
+            document.getElementById("submit-restroom").addEventListener("click", async () => {
+                const description = document.getElementById("restroom-description").value;
+                const { name } = await getBuildingName(loc.lat, loc.lng);
+
+                fetch('/add-restroom-location', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        lat: loc.lat,
+                        lng: loc.lng,
+                        name: name,
+                        description: description,
+                    })
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result._id) {
+                            alert("Restroom added successfully.");
+                        } else {
+                            alert("Error: " + result.error);
+                        }
+                    })
+                    .catch(err => {
+                        console.error("Submit failed:", err);
+                        alert("Faled to submit.");
+                    });
+            });
+        })
+        .catch(err => {
+            console.error("Failed to load form:", err);
+            sidebar.innerHTML = "<p>Error loading form.</p>";
+        });
+}
+
 
 
 if (typeof module !== 'undefined') {
