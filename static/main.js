@@ -80,7 +80,7 @@ function addRestroomMarker(loc, isNew = false) {
 
     restroom_markers.push(marker);
 
-    const { lat, lng } = coords;
+    const [lat, lng] = coords;
 
     marker.bindPopup('<header>Loading building name...</header>').openPopup();
 
@@ -96,9 +96,10 @@ function addRestroomMarker(loc, isNew = false) {
                 sidebar.classList.add("show");
             }
 
-            fetch(`/restroom/${loc._id}/sidebar`)
+            fetch(`/restroom/${loc._id}`)
                 .then(res => res.text())
                 .then(html => {
+                    console.log(html);
                     document.getElementById("account-sidebar").innerHTML = html;
                 })
                 .catch(err => {
@@ -124,51 +125,47 @@ function addRestroomMarker(loc, isNew = false) {
 }
 
 
-async function getBuildingName(lat, lng) {
-    fetch('/get-building-name', {
+function getBuildingName(lat, lng) {
+    return fetch('/get-building-name', {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ lat, lng })
     })
         .then(res => res.json())
         .then(data => {
             let popupText = '';
+            let name = "Unknown";
+
             if (data.elements && data.elements.length > 0) {
                 let closestElement = null;
                 let closestDistance = Infinity;
-                //loop through response
+
                 for (const obj of data.elements) {
                     const objLat = obj.center?.lat;
                     const objLng = obj.center?.lon;
                     if (objLat == null || objLng == null) continue;
 
-                    //distance formula to get closest building using its center (not exact)
-                    const dist = ((objLat - lat) ** 2 + (objLng - lng) ** 2) ** (1 / 2);
+                    const dist = ((objLat - lat) ** 2 + (objLng - lng) ** 2) ** 0.5;
 
                     if (dist < closestDistance) {
                         closestDistance = dist;
                         closestElement = obj;
                     }
                 }
-                //get building/place name
-                const name = closestElement?.tags?.name
-                    || closestElement?.tags?.place;
 
-                popupText = `<header>${name}</header>
-                         <p>Rating: 0/5<br/>Reviews:</p>`;
+                name = closestElement?.tags?.name || closestElement?.tags?.place || "Unnamed";
+                popupText = `<header>${name}</header><p>Rating: 0/5<br/>Reviews:</p>`;
             } else {
                 popupText = `<header>No name found</header>`;
             }
-            return { name, popupText };
+
+            return { name, popupText }; // ✅ This is now returned properly
         })
         .catch(error => {
-            console.log("Error retrieving location:", error);
+            console.error("Error retrieving location:", error);
             return { name: "Error", popupText: "<header>Error retrieving location</header>" };
         });
 }
-
 
 
 (function () {
@@ -188,7 +185,7 @@ async function getBuildingName(lat, lng) {
             .then(data => {
                 for (const loc of data) {
                     if (loc.lat != null && loc.lng != null) {
-                        addNewRestroomMarker(loc);
+                        addRestroomMarker(loc);
                     }
                 }
             })
@@ -198,7 +195,7 @@ async function getBuildingName(lat, lng) {
 
 
         map.on('dblclick', function (e) {
-            addRestroomMarker(e.latlng);
+            addNewRestroomMarker(e.latlng);
             console.log(e.latlng);
         }, true);
 

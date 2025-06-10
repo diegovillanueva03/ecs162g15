@@ -185,8 +185,7 @@ def view_restroom(restroom_id):
 
 @app.route('/new-restroom-sidebar')
 def new_restroom_sidebar():
-    return render_template('new_restroom.j2')  # or .html if you're using plain HTML
-
+    return render_template('new_restroom.j2')
 
 
 if __name__ == '__main__':
