@@ -19,7 +19,7 @@ let location_dot;
 let restroom_markers = [];
 
 function initMap(origin, zoom) {
-    if(map == null) {
+    if (map == null) {
         map = L.map('map', {
             center: origin,
             zoom: zoom
@@ -37,20 +37,20 @@ function initMap(origin, zoom) {
 }
 
 async function loadCurrentCoordinates() {
-        return new Promise((resolve, reject) => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    resolve([position.coords.latitude, position.coords.longitude]);
-                }, reject);
-            } else {
-                reject(new Error("Geolocation API is not supported by this browser."));
-            }
-        });
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                resolve([position.coords.latitude, position.coords.longitude]);
+            }, reject);
+        } else {
+            reject(new Error("Geolocation API is not supported by this browser."));
+        }
+    });
 }
 
 function initCurrentLocation() {
     loadCurrentCoordinates().then((coords) => {
-        if(location_dot != null)
+        if (location_dot != null)
             map.removeLayer(location_dot);
         location_dot = L.circleMarker(coords, {
             interactive: false,
@@ -67,9 +67,9 @@ function initCurrentLocation() {
 }
 
 function addRestroomMarker(coords) {
-    for(let m of restroom_markers) {
+    for (let m of restroom_markers) {
         let latLng = m.getLatLng();
-        if(latLng.equals(coords))
+        if (latLng.equals(coords))
             return null;
     }
 
@@ -107,41 +107,41 @@ function addRestroomMarker(coords) {
         },
         body: JSON.stringify({ lat, lng })
     })
-    .then(res => res.json())
-    .then(data => {
-        let popupText = '';
-        if (data.elements && data.elements.length > 0) {
-            let closestElement = null;
-            let closestDistance = Infinity;
-            //loop through response
-            for (const obj of data.elements) {
-                const objLat = obj.center?.lat;
-                const objLng = obj.center?.lon;
-                if (objLat == null || objLng == null) continue;
+        .then(res => res.json())
+        .then(data => {
+            let popupText = '';
+            if (data.elements && data.elements.length > 0) {
+                let closestElement = null;
+                let closestDistance = Infinity;
+                //loop through response
+                for (const obj of data.elements) {
+                    const objLat = obj.center?.lat;
+                    const objLng = obj.center?.lon;
+                    if (objLat == null || objLng == null) continue;
 
-                //distance formula to get closest building using its center (not exact)
-                const dist = ((objLat - lat) ** 2 + (objLng - lng) ** 2) ** (1 / 2);
+                    //distance formula to get closest building using its center (not exact)
+                    const dist = ((objLat - lat) ** 2 + (objLng - lng) ** 2) ** (1 / 2);
 
-                if (dist < closestDistance) {
-                    closestDistance = dist;
-                    closestElement = obj;
+                    if (dist < closestDistance) {
+                        closestDistance = dist;
+                        closestElement = obj;
+                    }
                 }
-            }
-            //get building/place name
-            const name = closestElement?.tags?.name
-                || closestElement?.tags?.place;
+                //get building/place name
+                const name = closestElement?.tags?.name
+                    || closestElement?.tags?.place;
 
-            popupText = `<header>${name}</header>
+                popupText = `<header>${name}</header>
                          <p>Rating: 0/5<br/>Reviews:</p>`;
-        } else {
-            popupText = `<header>No name found</header>`;
-        }
-        marker.setPopupContent(popupText);
-    })
-    .catch(error => {
-        console.log("Error retrieving location:", error);
-        marker.setPopupContent(`<header>Error retrieving location</header>`);
-    });
+            } else {
+                popupText = `<header>No name found</header>`;
+            }
+            marker.setPopupContent(popupText);
+        })
+        .catch(error => {
+            console.log("Error retrieving location:", error);
+            marker.setPopupContent(`<header>Error retrieving location</header>`);
+        });
 
     return marker;
 }
@@ -158,26 +158,40 @@ function addRestroomMarker(coords) {
         //Also marks current location with an Apple Maps-like circle
         initCurrentLocation();
 
-        map.on('dblclick', function(e) {
+        fetch('/restroom-locations')
+            .then(res => res.json())
+            .then(data => {
+                for (const loc of data) {
+                    if (loc.lat != null && loc.lng != null) {
+                        addRestroomMarker([loc.lat, loc.lng]);
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Failed to load restrooms:", err);
+            });
+
+        map.on('dblclick', function (e) {
             addRestroomMarker(e.latlng);
             console.log(e.latlng);
         });
 
-            //open sidebar
-            const connected = document.getElementById("sidebar-tester");
-            if(connected){
-                connected.style.display = "inline";
-                connected.addEventListener("click", () => {
-                    document.getElementById("account-sidebar").classList.add("show");
-                    document.getElementById("user-email").textContent = `${user.email}`;
-            })};
+        //open sidebar
+        const connected = document.getElementById("sidebar-tester");
+        if (connected) {
+            connected.style.display = "inline";
+            connected.addEventListener("click", () => {
+                document.getElementById("account-sidebar").classList.add("show");
+                document.getElementById("user-email").textContent = `${user.email}`;
+            })
+        };
 
-            //close marker popup when sidebar is closed
-            document.getElementById("close-sidebar").addEventListener("click", () => {
-                document.getElementById("account-sidebar").classList.remove("show");
-                if (map) {
-                    map.closePopup();
-                }
+        //close marker popup when sidebar is closed
+        document.getElementById("close-sidebar").addEventListener("click", () => {
+            document.getElementById("account-sidebar").classList.remove("show");
+            if (map) {
+                map.closePopup();
+            }
         });
 
     }

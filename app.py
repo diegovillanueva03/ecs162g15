@@ -16,9 +16,9 @@ from bson.errors import InvalidId
 # https://wiki.openstreetmap.org/wiki/Overpass_API
 # query nearby buildings using overpass api:
 # https://stackoverflow.com/questions/76458081/overpass-around-to-find-addresses-in-certain-radius-from-a-coordinate
-# 
-# 
-# 
+#
+#
+#
 
 load_dotenv(dotenv_path='.env.dev')
 
@@ -152,6 +152,32 @@ def remove_restroom_review():
     # TODO: Remove restroom review either as a moderator
     #  or unprivileged user (Can only remove their review)
     pass
+
+@app.route('/restroom-locations', methods=['GET'])
+def get_restroom_locations():
+    try:
+        locations = list(LOCATIONS_COLLECTION.find({}))
+        for loc in locations:
+            loc['_id'] = str(loc['_id'])
+        return jsonify(locations)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/restroom/<restroom_id>', methods=['GET'])
+def view_restroom(restroom_id):
+    try:
+        obj_id = ObjectId(restroom_id)
+        restroom = LOCATIONS_COLLECTION.find_one({'_id': obj_id})
+        reviews = list(REVIEWS_COLLECTION.find({'locationid': restroom_id}))
+        if restroom:
+            restroom['_id'] = str(restroom['_id'])
+            for r in reviews:
+                r['_id'] = str(r['_id'])
+            return render_template('restroom.html', restroom=restroom, reviews=reviews)
+        return "Not found", 404
+    except InvalidId:
+        return "Invalid ID", 400
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
