@@ -83,6 +83,23 @@ function addRestroomMarker(coords) {
 
     marker.bindPopup('<header>Loading building name...</header>').openPopup();
 
+    //open sidebar when marker is clicked
+    const sidebar = document.getElementById("account-sidebar");
+    if (sidebar && !sidebar.classList.contains("show")) {
+        sidebar.classList.add("show");
+    }
+
+    marker.on('popupopen', () => {
+        if (sidebar && !sidebar.classList.contains("show")) {
+            sidebar.classList.add("show");
+        }
+    });
+
+    //close sidebar when popup is closed
+    marker.on('popupclose', () => {
+        document.getElementById("account-sidebar").classList.remove("show");
+    });
+
     fetch('/get-building-name', {
         method: "POST",
         headers: {
@@ -155,9 +172,12 @@ function addRestroomMarker(coords) {
                     document.getElementById("user-email").textContent = `${user.email}`;
             })};
 
-            //close sidebar
+            //close marker popup when sidebar is closed
             document.getElementById("close-sidebar").addEventListener("click", () => {
-            document.getElementById("account-sidebar").classList.remove("show");
+                document.getElementById("account-sidebar").classList.remove("show");
+                if (map) {
+                    map.closePopup();
+                }
         });
 
     }
