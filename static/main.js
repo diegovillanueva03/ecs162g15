@@ -113,9 +113,12 @@ function addRestroomMarker(loc, isNew = false) {
         document.getElementById("account-sidebar").classList.remove("show");
     });
 
-    getBuildingName(lat, lng).then(({ name, popupText }) => {
+    getBuildingName(loc.lat, loc.lng).then(({ name, popupText }) => {
         marker.name = name;
         marker.setPopupContent(popupText);
+    }).catch(err => {
+        console.error("Error getting building name:", err);
+        marker.setPopupContent("<header>Error retrieving building name</header>");
     });
 
 
@@ -125,7 +128,7 @@ function addRestroomMarker(loc, isNew = false) {
 
 
 async function getBuildingName(lat, lng) {
-    fetch('/get-building-name', {
+    return fetch('/get-building-name', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -135,6 +138,7 @@ async function getBuildingName(lat, lng) {
         .then(res => res.json())
         .then(data => {
             let popupText = '';
+            let name = 'Unknown';
             if (data.elements && data.elements.length > 0) {
                 let closestElement = null;
                 let closestDistance = Infinity;
