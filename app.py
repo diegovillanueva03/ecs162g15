@@ -173,7 +173,7 @@ def view_restroom(restroom_id):
             restroom['_id'] = str(restroom['_id'])
             for r in reviews:
                 r['_id'] = str(r['_id'])
-            return render_template('restroom.html', restroom=restroom, reviews=reviews)
+            return render_template('restroom.j2', restroom=restroom, reviews=reviews)
         return "Not found", 404
     except InvalidId:
         return "Invalid ID", 400
