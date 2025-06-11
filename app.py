@@ -80,8 +80,33 @@ def get_building_name():
 def home():
     return render_template('index.html')
 
-# TODO: Need login endpoint
-# TODO: Need logout endpoint
+@app.route('/login')
+def login():
+    session['nonce'] = NONCE
+    redirect_uri = 'http://localhost:8000/authorize'
+    oauth_client = OAUTH.create_client(os.getenv('OIDC_CLIENT_NAME'))
+    return oauth_client.authorize_redirect(redirect_uri, nonce=NONCE)
+
+@app.route('/authorize')
+def authorize():
+    oauth_client = OAUTH.create_client(os.getenv('OIDC_CLIENT_NAME'))
+    token = oauth_client.authorize_access_token()
+    nonce = session.get('nonce')
+    user_info = oauth_client.parse_id_token(token, nonce=nonce)
+    session['user'] = user_info
+    return redirect('/')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.route('/user')
+def get_user():
+    user = session.get('user')
+    if user:
+        return jsonify(user)
+    return jsonify({"error": "Unauthorized"}), 401
 
 @app.route('/add-restroom-location', methods=['POST'])
 def add_restroom_location():
@@ -167,6 +192,22 @@ def get_restroom_locations():
         return jsonify(locations)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/get-restroom-reviews/<restroom_id>', methods=['GET'])
+def get_restroom_reviews(restroom_id):
+    try:
+        reviews_cursor = REVIEWS_COLLECTION.find({"locationid":restroom_id})
+
+        review_list = []
+        for review in reviews_cursor:
+            review['_id'] = str(review['_id'])
+            if isinstance(review.get('locationid'), ObjectId):
+                review['locationid'] = str(review['locationid'])
+            review_list.append(review)
+        return jsonify(review_list), 200
+    
+    except InvalidId:
+        return "Invalid Id", 400
 
 @app.route('/restroom/<restroom_id>', methods=['GET'])
 def view_restroom(restroom_id):

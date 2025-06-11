@@ -60,7 +60,7 @@ input::placeholder {
     font-size: 1rem;
 }
 
-.carat {
+#carat {
     width: 12px;
     margin: 3px;
 }
@@ -83,6 +83,10 @@ input::placeholder {
 
 #logout-button:hover {
     text-decoration: underline; 
+}
+
+#dropdown {
+    visibility: hidden;
 }
 
 .drop-option {
@@ -115,6 +119,16 @@ main, body, html {
     flex-direction: column;
     color: #003882;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.rating-img {
+    width: 50px;
+    margin: 5px;
 }
 
 .hidden {
@@ -175,5 +189,5 @@ main, body, html {
 }
 
 body {
-    font-family: Georgia;
+    font-family: Arial, Helvetica, sans-serif;
 }

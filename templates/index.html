@@ -36,27 +36,25 @@
             </select>
         </div>
 
-        <!--
+
         <div id="account-dropdown">
-            <button id="account" class="button">Account <img src="../static/images/down_carat.png" alt="down carat" class="carat"></button>
+            <button id="account" class="button">Account <img src="../static/images/down_carat.png" alt="down carat" id="carat"></button>
             <div id="dropdown">
                 <div id="account-name" class="drop-option">Username</div>
                 <button id="logout-button" class="button">Log Out</button>
             </div>
         </div>
-        -->
+        
         
         <div id="login-container">
             <button id="login-button" class="button">LOG IN</button>
         </div>
+       
+        
     </nav>
 </header>
 <main>
     <div id="map"></div>
-    <!-- add button to click to open sidebar (temp) -->
-    <button id="sidebar-tester" class="open-sb-btn">
-        open sidebar
-    </button>
     <div id="account-sidebar" class="sidebar">
         <div class="sidebar-content">
             <span id="close-sidebar" class="close-btn">&times;</span>
@@ -65,8 +63,14 @@
             <div id="avg-review">
                 <!-- change to connect to database -->
                 <p id="total-review-rating">3.4</p>
-                <p>*****</p>
-                <p id="number-of-reviews">5 review</p> 
+                <div id="ratings">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll1">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll2">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll3">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll4">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll5">
+                </div>
+                <p id="number-of-reviews">5 reviews</p> 
             </div>
             
             <div id="location-image">
@@ -88,19 +92,8 @@
                 </div>
             </div>
             <h3 id="community-reviews-title">Community Reviews</h3>
-            <!-- FIXME: use mapping and pull from database -->
             <div id="user-review-section">
-                <div id="user-info">
-                    <!-- pfp image from https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ADefault_pfp.svg&psig=AOvVaw0LsorKCmVbk51fgyx7C7R9&ust=1749158421969000&source=images&cd=vfe&opi=89978449&ved=0CBgQ3YkBahcKEwjA9dWH2diNAxUAAAAAHQAAAAAQHg -->
-                    <img src="./images/default_pfp.png" alt="default profile picture">
-                    <div id="user-name-location">
-                        <p id="name">Jane Doe</p>
-                        <p id="location">Davis,CA</p>
-                    </div>
-                    <h4 id="review-paragraph">
-                        loren ipsum, this bathroom is so nice. highly recommend. it is a little far off campus, though.
-                    </h4>
-                </div>
+                
             </div>
         </div>
     </div>
