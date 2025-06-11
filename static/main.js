@@ -434,7 +434,6 @@ function addNewRestroomMarker(loc) {
         .then(res => res.text())
         .then(html => {
             sidebar.innerHTML = html;
-            console.log("Sidebar element:", sidebar);
 
             document.getElementById("submit-restroom").addEventListener("click", async () => {
                 const description = document.getElementById("restroom-description").value;
@@ -466,7 +465,7 @@ function addNewRestroomMarker(loc) {
             });
         })
         .catch(err => {
-            console.error("Failed to load form:", err);
+            console.error("Failed to load fosssrm:", err);
             sidebar.innerHTML = "<p>Error loading form.</p>";
         });
 }
