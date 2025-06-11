@@ -217,7 +217,7 @@ def get_restroom_locations():
         return jsonify(locations)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
 @app.route('/get-restroom-reviews/<restroom_id>', methods=['GET'])
 def get_restroom_reviews(restroom_id):
     try:
@@ -230,36 +230,21 @@ def get_restroom_reviews(restroom_id):
                 review['locationid'] = str(review['locationid'])
             review_list.append(review)
         return jsonify(review_list), 200
-    
+
     except InvalidId:
         return "Invalid Id", 400
-
-@app.route('/restroom', methods=['GET'])
-def get_restroom():
-    data = request.get_json()
-    lat = data.get("lat")
-    lng = data.get("lng")
-    name = data.get("name")
-    try:
-        restroom = LOCATIONS_COLLECTION.find_one({'lat': lat, 'lng': lng,'name': name})
-        if not restroom:
-            return "Not found", 404
-        return redirect('/restroom/' + str(restroom['_id']))
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 @app.route('/restroom/<restroom_id>', methods=['GET'])
 def view_restroom(restroom_id):
     try:
-        obj_id = ObjectId(restroom_id)
-        restroom = LOCATIONS_COLLECTION.find_one({'_id': obj_id})
+        restroom = LOCATIONS_COLLECTION.find_one({'_id': restroom_id})
         reviews = list(REVIEWS_COLLECTION.find({'restroomid': restroom_id}))
         if restroom:
             restroom['_id'] = str(restroom['_id'])
             for r in reviews:
                 r['_id'] = str(r['_id'])
             return render_template('restroom.j2', restroom=restroom, reviews=reviews)
-        return "Not found", 404
+        return "Not founderewe", 404
     except InvalidId:
         return "Invalid ID", 400
 

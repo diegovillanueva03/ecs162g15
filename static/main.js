@@ -6,7 +6,6 @@
     https://www.w3schools.com/html/html5_geolocation.asp
     https://wiki.openstreetmap.org/wiki/Overpass_API
 
-
  */
 
 const SILO_COORDS = [38.539, -121.753];
@@ -23,16 +22,16 @@ const userReviewSection = document.getElementById('user-review-section');
 const locationNameElement = document.getElementById('location-name');
 
 // sidebar functions
-function openReviewSidebar(){
-    if(accountSidebar){
+function openReviewSidebar() {
+    if (accountSidebar) {
         accountSidebar.classList.add('show');
     }
 }
 
-function closeReviewSidebar(){
-    if (accountSidebar){
+function closeReviewSidebar() {
+    if (accountSidebar) {
         accountSidebar.classList.remove('show');
-        if(userReviewSection){
+        if (userReviewSection) {
             userReviewSection.innerHTML = ''; //clear the review section
         }
     }
@@ -40,14 +39,14 @@ function closeReviewSidebar(){
 
 document.addEventListener('DOMContentLoaded', () => {
     const closeSidebarBtn = document.getElementById('close-sidebar');
-    if(closeSidebarBtn){
+    if (closeSidebarBtn) {
         closeSidebarBtn.addEventListener('click', closeReviewSidebar);
     }
 });
 
 //get reviews for retroom location
-async function fetchReviews(restroomId, buildingName){
-    if(!userReviewSection){
+async function fetchReviews(restroomId, buildingName) {
+    if (!userReviewSection) {
         console.error('error');
         return;
     }
@@ -55,23 +54,23 @@ async function fetchReviews(restroomId, buildingName){
     //loading message
     userReviewSection.innerHTML = '<h3>Loading Reviews...</h3>';
 
-    //update location name 
-    if(locationNameElement){
+    //update location name
+    if (locationNameElement) {
         locationNameElement.textContent = buildingName;
     }
 
     openReviewSidebar();
 
-    try{
+    try {
         const response = await fetch(`/get-restroom-reviews/${restroomId}`);
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
         const reviews = await response.json();
 
         userReviewSection.innerHTML = '';
 
-        if (reviews.length == 0){
+        if (reviews.length == 0) {
             userReviewSection.innerHTML = '<p>Not reviews yet.</p>';
         } else {
             reviews.forEach(review => {
@@ -79,9 +78,9 @@ async function fetchReviews(restroomId, buildingName){
                 reviewElement.className = 'bg-white';
 
                 const reviewDate = new Date(review.timestamp.$date || review.timestamp);
-                
-                reviewElement.innerHTML = 
-                `
+
+                reviewElement.innerHTML =
+                    `
                 <p>${review.username || 'Jane Doe'}</p>
                 <p><span>${'★'.repeat(review.rating)}</span></p>
                 <p>${review.content}</p>
@@ -90,7 +89,7 @@ async function fetchReviews(restroomId, buildingName){
                 userReviewSection.appendChild(reviewElement);
             });
         }
-    } catch (error){
+    } catch (error) {
         console.error('Error fetching reviews.');
         userReviewSection.innerHTML = `<p>${error.message}</p>`;
     }
@@ -164,25 +163,27 @@ function addRestroomMarker(loc, isNew = false) {
 
     const { lat, lng } = coords;
 
-    marker.bindPopup('<header>Loading building name...</header>').openPopup();
+    marker.bindPopup(`<header>${loc.name}</header>`);
 
     // //open sidebar when marker is clicked
-    // const sidebar = document.getElementById("account-sidebar");
+    const sidebar = document.getElementById("account-sidebar");
     // if (sidebar && !sidebar.classList.contains("show")) {
     //     sidebar.classList.add("show");
     // }
-    openReviewSidebar(); //maybe fix, bc will open without reviews
+    //maybe fix, bc will open without reviews
 
     if (!isNew && loc._id) {
         marker.on('popupopen', () => {
             if (sidebar && !sidebar.classList.contains("show")) {
                 sidebar.classList.add("show");
             }
+            openReviewSidebar();
 
             fetch(`/restroom/${loc._id}`)
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById("account-sidebar").innerHTML = html;
+                    addReview();
                 })
                 .catch(err => {
                     console.error("Failed to load sidebar:", err);
@@ -196,40 +197,69 @@ function addRestroomMarker(loc, isNew = false) {
         closeReviewSidebar();
     });
 
-    getBuildingName(loc.lat, loc.lng, restroomId).then(({ name, popupText }) => {
-        marker.name = name;
-        marker.setPopupContent(popupText);
-        const buildingName = name;
-        marker._buildingName = buildingName;
-
-        if(locationNameElement){
-            locationNameElement.textContent = buildingName;
-        }
-
-        const popupContent = `
-            ${popupText}
-            <button id="seeReviewsBtn_${restroomId}">See Reviews</button>
-        `;
-
-        marker.setPopupContent(popupContent)
-            .on('popupopen', function() {
-                const seeReviewsBtn = document.getElementById(`seeReviewsBtn_${restroomId}`);
-                if(seeReviewsBtn){
-                    seeReviewsBtn.onclick = () => {
-                        fetchReviews(restroomId, buildingName);
-                    };
-                }
-                openReviewSidebar();
-                fetchReviews(restroomId, buildingName);
-            });
-            marker.openPopup();
-    }).catch(err => {
-        console.error("Error getting building name:", err);
-        marker.setPopupContent("<header>Error retrieving building name</header>");
-    });
+    marker.name = loc.name ?? "Error Retrieving Name";
 
     return marker;
 }
+
+function addReview() {
+    document.getElementById("submit-review").addEventListener("click", async () => {
+        const content = document.getElementById("review-content").value.trim();  // textarea input
+        const rating = parseInt(document.getElementById("review-rating").value); // numeric input or select
+        const restroomid = "{{ restroom._id }}"; // populated by Jinja
+
+        const errorMsg = document.getElementById("review-error-msg");
+        errorMsg.style.display = "none";
+        errorMsg.textContent = "";
+
+        if (!content) {
+            errorMsg.textContent = "Please enter review content.";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        if (!rating || rating < 1 || rating > 5) {
+            errorMsg.textContent = "Rating must be a number from 1 -- 5.";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        try {
+            const res = await fetch('/add-restroom-review', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    restroomid,
+                    content,
+                    rating
+                })
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                fetch(`/restroom/${restroomid}`)
+                    .then(res => res.text())
+                    .then(html => {
+                        document.getElementById("account-sidebar").innerHTML = html;
+                        addReview();
+                    })
+                    .catch(err => {
+                        console.error("Failed to load sidebar:", err);
+                        document.getElementById("account-sidebar").innerHTML = "<p>Error loading info.</p>";
+                    });
+            } else {
+                errorMsg.textContent = result.error || "Unknown error submitting review.";
+                errorMsg.style.display = "block";
+            }
+        } catch (err) {
+            console.error("Review submission failed:", err);
+            errorMsg.textContent = "Submission failed. Please try again.";
+            errorMsg.style.display = "block";
+        }
+    });
+}
+
 
 
 async function getBuildingName(lat, lng) {
@@ -297,7 +327,7 @@ async function getBuildingName(lat, lng) {
             .then(data => {
                 for (const loc of data) {
                     if (loc.lat != null && loc.lng != null) {
-                        addNewRestroomMarker(loc);
+                        addRestroomMarker(loc);
                     }
                 }
             })
@@ -394,9 +424,6 @@ async function getBuildingName(lat, lng) {
 })();
 
 function addNewRestroomMarker(loc) {
-    const marker = addRestroomMarker(loc);
-
-    if (!marker) return;
 
     const sidebar = document.getElementById("account-sidebar");
     if (sidebar && !sidebar.classList.contains("show")) {
@@ -410,7 +437,7 @@ function addNewRestroomMarker(loc) {
 
             document.getElementById("submit-restroom").addEventListener("click", async () => {
                 const description = document.getElementById("restroom-description").value;
-                const { name } = await getBuildingName(loc.lat, loc.lng);
+                const name = document.getElementById("restroom-name").value;
 
                 fetch('/add-restroom-location', {
                     method: 'POST',
@@ -425,6 +452,7 @@ function addNewRestroomMarker(loc) {
                     .then(res => res.json())
                     .then(result => {
                         if (result._id) {
+                            addRestroomMarker(result, true);
                             alert("Restroom added successfully.");
                         } else {
                             alert("Error: " + result.error);
