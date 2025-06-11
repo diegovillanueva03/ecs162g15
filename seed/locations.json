@@ -5,7 +5,7 @@
         "lng": -121.749518,
         "description": "Gender-inclusive restrooms on the fourth floor of the main library, offering private and accessible facilities for students and staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Shields Library",
+        "name": "Shields Library",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -14,7 +14,7 @@
         "lng": -121.7495517,
         "description": "Multi-stall restrooms in a high-traffic student center, regularly maintained with accessibility features.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Memorial Union",
+        "name": "Memorial Union",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -23,7 +23,7 @@
         "lng": -121.7490791,
         "description": "Public restrooms on the first floor of the administrative building, clean and accessible for staff and visitors.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Mrak Hall",
+        "name": "Mrak Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -32,7 +32,7 @@
         "lng": -121.7514056,
         "description": "Multi-stall restrooms in this lecture hall building, designed for high student traffic during classes.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wellman Hall",
+        "name": "Wellman Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -41,7 +41,7 @@
         "lng": -121.7476061,
         "description": "Restrooms in this academic building, clean and maintained for student and faculty use during lectures and seminars.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Olson Hall",
+        "name": "Olson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -50,7 +50,7 @@
         "lng": -121.7590926,
         "description": "Restrooms in the recreation facility, clean but often busy due to high student and athlete usage.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Activities and Recreation Center",
+        "name": "Activities and Recreation Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -59,7 +59,7 @@
         "lng": -121.7516426,
         "description": "Gender-inclusive restrooms on multiple floors of the student center, designed for accessibility and inclusivity.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Student Community Center",
+        "name": "Student Community Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -68,7 +68,7 @@
         "lng": -121.7542183,
         "description": "Modern restrooms with private stalls in this teaching facility, highly rated for cleanliness.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Teaching Learning Complex",
+        "name": "Teaching Learning Complex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -77,7 +77,7 @@
         "lng": -121.7516099,
         "description": "Eco-friendly restrooms with flushless urinals in the science building, maintained for students and researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Earth and Physical Sciences Building",
+        "name": "Earth and Physical Sciences Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -86,7 +86,7 @@
         "lng": -121.7556698,
         "description": "Clean restrooms in this modern lecture hall, designed for student use during classes.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Giedt Hall",
+        "name": "Giedt Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -95,7 +95,7 @@
         "lng": -121.7532318,
         "description": "Well-maintained restrooms in the engineering building, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Bainer Hall",
+        "name": "Bainer Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -104,7 +104,7 @@
         "lng": -121.750658,
         "description": "Single-stall restrooms in this academic building, offering privacy but some noted as needing updates.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hart Hall",
+        "name": "Hart Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -113,7 +113,7 @@
         "lng": -121.7524856,
         "description": "Low-traffic restrooms in the academic building, clean and quiet for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Academic Surge",
+        "name": "Academic Surge",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -122,7 +122,7 @@
         "lng": -121.7535403,
         "description": "Restrooms in this classroom building, maintained for student use during lectures.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hutchison Hall",
+        "name": "Hutchison Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -131,7 +131,7 @@
         "lng": -121.7468874,
         "description": "Accessible restrooms in the administrative building, clean and regularly maintained.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Sproul Hall",
+        "name": "Sproul Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -140,7 +140,7 @@
         "lng": -121.7518006,
         "description": "Restrooms in the physics department, functional and clean for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Roessler Hall",
+        "name": "Roessler Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -149,7 +149,7 @@
         "lng": -121.755005,
         "description": "Standard restrooms in this engineering building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Kemper Hall",
+        "name": "Kemper Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -158,7 +158,7 @@
         "lng": -121.7507696,
         "description": "Modern restrooms in this renovated academic building, designed for accessibility.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Walker Hall",
+        "name": "Walker Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -167,7 +167,7 @@
         "lng": -121.7522502,
         "description": "Functional restrooms in this agricultural sciences building, clean for research staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Veihmeyer Hall",
+        "name": "Veihmeyer Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -176,7 +176,7 @@
         "lng": -121.7520225,
         "description": "Restrooms in this academic building, connected to Wellman Hall, clean and accessible.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Kerr Hall",
+        "name": "Kerr Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -185,7 +185,7 @@
         "lng": -121.7583379,
         "description": "Single-stall restrooms in this residence hall, offering privacy and accessibility for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Alder Hall",
+        "name": "Alder Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -194,7 +194,7 @@
         "lng": -121.757395,
         "description": "Community restrooms for every four rooms in this residence hall, clean and accessible for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Bixby Hall",
+        "name": "Bixby Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -203,7 +203,7 @@
         "lng": -121.7587924,
         "description": "Clean restrooms in this residence hall, maintained for student residents’ comfort.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Gilmore Hall",
+        "name": "Gilmore Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -212,7 +212,7 @@
         "lng": -121.7574144,
         "description": "Clean restrooms in this residence hall, designed for resident student accessibility.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Malcolm Hall",
+        "name": "Malcolm Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -221,7 +221,7 @@
         "lng": -121.7571471,
         "description": "Single-stall restrooms in this residence hall, offering privacy for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Miller Hall",
+        "name": "Miller Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -230,7 +230,7 @@
         "lng": -121.7585926,
         "description": "Community restrooms in this residence hall, clean and accessible for student residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Ryerson Hall",
+        "name": "Ryerson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -239,7 +239,7 @@
         "lng": -121.7577067,
         "description": "Restrooms in this residence hall, maintained for student comfort and accessibility.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Thompson Hall",
+        "name": "Thompson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -248,7 +248,7 @@
         "lng": -121.7582973,
         "description": "Accessible restrooms in this residence hall, designed for resident student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Kearney Hall",
+        "name": "Kearney Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -257,7 +257,7 @@
         "lng": -121.7584488,
         "description": "Clean restrooms in this residence hall, with accessibility features for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Laben Hall",
+        "name": "Laben Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -266,7 +266,7 @@
         "lng": -121.7576016,
         "description": "Restrooms in this residence hall, maintained clean for student residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wall Hall",
+        "name": "Wall Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -275,7 +275,7 @@
         "lng": -121.7584388,
         "description": "Single-stall restrooms in this residence hall, offering privacy for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Potter Hall",
+        "name": "Potter Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -284,7 +284,7 @@
         "lng": -121.7583755,
         "description": "Community restrooms in this residence hall, clean and accessible for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Campbell Hall",
+        "name": "Campbell Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -293,7 +293,7 @@
         "lng": -121.7636494,
         "description": "Restrooms in this residence hall, designed for accessibility for student residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Shasta Hall",
+        "name": "Shasta Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -302,7 +302,7 @@
         "lng": -121.7640774,
         "description": "Clean restrooms in this residence hall, maintained for student resident use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Tahoe Hall",
+        "name": "Tahoe Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -311,7 +311,7 @@
         "lng": -121.7633142,
         "description": "Restrooms in this residence hall, with accessibility features for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Yosemite Hall",
+        "name": "Yosemite Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -320,7 +320,7 @@
         "lng": -121.7547299,
         "description": "Restrooms in this science laboratory building, clean and functional for researchers and students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Sciences Laboratory Building",
+        "name": "Sciences Laboratory Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -329,7 +329,7 @@
         "lng": -121.7539506,
         "description": "Multi-stall restrooms in this lecture hall, maintained for high student traffic.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Haring Hall",
+        "name": "Haring Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -338,7 +338,7 @@
         "lng": -121.7486436,
         "description": "Restrooms in this arts facility, clean and accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Art Annex",
+        "name": "Art Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -347,7 +347,7 @@
         "lng": -121.7475459,
         "description": "Restrooms in this music facility, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Music Building",
+        "name": "Music Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -356,7 +356,7 @@
         "lng": -121.7531919,
         "description": "Restrooms in this dining facility, clean and designed for high student traffic.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "The Silo",
+        "name": "The Silo",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -365,7 +365,7 @@
         "lng": -121.7531973,
         "description": "Restrooms in this agricultural research building, functional and clean for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Asmundson Hall",
+        "name": "Asmundson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -374,7 +374,7 @@
         "lng": -121.7531829,
         "description": "Restrooms in this veterinary facility, clean and accessible for staff and students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Vet Med Center",
+        "name": "Vet Med Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -383,7 +383,7 @@
         "lng": -121.7501396,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Everson Hall",
+        "name": "Everson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -392,7 +392,7 @@
         "lng": -121.7561005,
         "description": "Restrooms in this science building, clean and functional for lab users.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Briggs Hall",
+        "name": "Briggs Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -401,7 +401,7 @@
         "lng": -121.7476961,
         "description": "Restrooms in this administrative building, accessible and well-maintained for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Dutton Hall",
+        "name": "Dutton Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -410,7 +410,7 @@
         "lng": -121.7482449,
         "description": "Restrooms in this historic administrative building, clean for office use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "North Hall",
+        "name": "North Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -419,7 +419,7 @@
         "lng": -121.7480687,
         "description": "Restrooms in this historic administrative building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "South Hall",
+        "name": "South Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -428,7 +428,7 @@
         "lng": -121.7519521,
         "description": "Restrooms in this agricultural research building, clean and accessible.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Robbins Hall",
+        "name": "Robbins Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -437,7 +437,7 @@
         "lng": -121.7405167,
         "description": "Restrooms in this engineering facility, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Engineering Unit II",
+        "name": "Engineering Unit II",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -446,7 +446,7 @@
         "lng": -121.7546128,
         "description": "Restrooms in this science building, designed for lab and classroom use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Storer Hall",
+        "name": "Storer Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -455,7 +455,7 @@
         "lng": -121.7482386,
         "description": "Restrooms in this academic building, maintained for student and faculty access.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Young Hall",
+        "name": "Young Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -464,7 +464,7 @@
         "lng": -121.7552094,
         "description": "Restrooms in this lecture hall, clean and accessible for high student traffic.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Kleiber Hall",
+        "name": "Kleiber Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -473,7 +473,7 @@
         "lng": -121.7516361,
         "description": "Restrooms in this academic building, functional for faculty and student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wickson Hall",
+        "name": "Wickson Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -482,7 +482,7 @@
         "lng": -121.7567544,
         "description": "Restrooms in this science building, clean and designed for lab users.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Life Sciences Addition",
+        "name": "Life Sciences Addition",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -491,7 +491,7 @@
         "lng": -121.7504018,
         "description": "Restrooms in this agricultural research building, maintained for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hunt Hall",
+        "name": "Hunt Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -500,7 +500,7 @@
         "lng": -121.7477304,
         "description": "Restrooms in this academic building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Social Sciences and Humanities",
+        "name": "Social Sciences and Humanities",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -509,7 +509,7 @@
         "lng": -121.7486246,
         "description": "Restrooms in this recreation facility, maintained for student athletes.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hickey Gym",
+        "name": "Hickey Gym",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -518,7 +518,7 @@
         "lng": -121.7544468,
         "description": "Restrooms in this science building, functional for research and teaching.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Meyer Hall",
+        "name": "Meyer Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -527,7 +527,7 @@
         "lng": -121.7545417,
         "description": "Restrooms in this academic building, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hoagland Hall",
+        "name": "Hoagland Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -536,7 +536,7 @@
         "lng": -121.7646802,
         "description": "Restrooms in this veterinary facility, maintained for staff and students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Vet Med Teaching Hospital",
+        "name": "Vet Med Teaching Hospital",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -545,7 +545,7 @@
         "lng": -121.7541888,
         "description": "Restrooms in this science building, clean and accessible for lab users.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Cruess Hall",
+        "name": "Cruess Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -554,7 +554,7 @@
         "lng": -121.7470045,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Voorhies Hall",
+        "name": "Voorhies Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -563,7 +563,7 @@
         "lng": -121.7520657,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Plant and Environmental Sciences",
+        "name": "Plant and Environmental Sciences",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -572,7 +572,7 @@
         "lng": -121.7596385,
         "description": "Restrooms in this recreation facility, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Pavilion at ARC",
+        "name": "Pavilion at ARC",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -581,7 +581,7 @@
         "lng": -121.7516527,
         "description": "Restrooms in this academic building, maintained for student access.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "RMI Sensory Building",
+        "name": "RMI Sensory Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -590,7 +590,7 @@
         "lng": -121.7556961,
         "description": "Restrooms in this science building, clean and functional for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Mann Laboratory",
+        "name": "Mann Laboratory",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -599,7 +599,7 @@
         "lng": -121.7639566,
         "description": "Restrooms in this agricultural teaching facility, clean and designed for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Bowley Plant Science Teaching Facility",
+        "name": "Bowley Plant Science Teaching Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -608,7 +608,7 @@
         "lng": -121.7501996,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Freeborn Hall",
+        "name": "Freeborn Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -617,7 +617,7 @@
         "lng": -121.750675,
         "description": "Restrooms in this science building, clean and accessible for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Enology Laboratory",
+        "name": "Enology Laboratory",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -626,7 +626,7 @@
         "lng": -121.7373601,
         "description": "Restrooms in this academic building, designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hunt Annex",
+        "name": "Hunt Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -635,7 +635,7 @@
         "lng": -121.7633325,
         "description": "Restrooms in this research building, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Plant Reproductive Biology Facility",
+        "name": "Plant Reproductive Biology Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -644,7 +644,7 @@
         "lng": -121.7478993,
         "description": "Restrooms in this academic building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wright Hall",
+        "name": "Wright Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -653,7 +653,7 @@
         "lng": -121.7547557,
         "description": "Restrooms in this administrative building, maintained for staff use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Surge II",
+        "name": "Surge II",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -662,7 +662,7 @@
         "lng": -121.7556478,
         "description": "Restrooms in this administrative building, clean and accessible.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Surge III",
+        "name": "Surge III",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -671,7 +671,7 @@
         "lng": -121.7540075,
         "description": "Restrooms in this administrative building, functional for staff and visitors.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Surge IV",
+        "name": "Surge IV",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -680,7 +680,7 @@
         "lng": -121.7649186,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Tupper Hall",
+        "name": "Tupper Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -689,7 +689,7 @@
         "lng": -121.7482043,
         "description": "Restrooms in this academic building, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Buehler Alumni Center",
+        "name": "Buehler Alumni Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -698,7 +698,7 @@
         "lng": -121.755521,
         "description": "Restrooms in this research building, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Cole Facility",
+        "name": "Cole Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -707,7 +707,7 @@
         "lng": -121.7535771,
         "description": "Restrooms in this academic building, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Ghausi Hall",
+        "name": "Ghausi Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -716,7 +716,7 @@
         "lng": -121.7525709,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Heitman Staff Learning Center",
+        "name": "Heitman Staff Learning Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -725,7 +725,7 @@
         "lng": -121.7904782,
         "description": "Restrooms in this science building, clean and accessible for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Hopkins Building",
+        "name": "Hopkins Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -734,7 +734,7 @@
         "lng": -121.7526833,
         "description": "Restrooms in this academic building, designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Jungerman Hall",
+        "name": "Jungerman Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -743,7 +743,7 @@
         "lng": -121.7485194,
         "description": "Restrooms in this performing arts facility, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Mondavi Center",
+        "name": "Mondavi Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -752,7 +752,7 @@
         "lng": -121.7510465,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Parsons Seed Certification Center",
+        "name": "Parsons Seed Certification Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -761,7 +761,7 @@
         "lng": -121.75147,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Peter A. Rock Hall",
+        "name": "Peter A. Rock Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -770,7 +770,7 @@
         "lng": -121.747863,
         "description": "Restrooms in this museum facility, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Shrem Museum",
+        "name": "Shrem Museum",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -779,7 +779,7 @@
         "lng": -121.7549273,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Sprocket Building",
+        "name": "Sprocket Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -788,7 +788,7 @@
         "lng": -121.7615168,
         "description": "Restrooms in this health facility, maintained for student and staff use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Student Health and Wellness Center",
+        "name": "Student Health and Wellness Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -797,7 +797,7 @@
         "lng": -121.7637077,
         "description": "Restrooms in this science building, clean and accessible for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Valley Hall",
+        "name": "Valley Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -806,7 +806,7 @@
         "lng": -121.766229,
         "description": "Restrooms in this research building, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Western Human Nutrition Research Center",
+        "name": "Western Human Nutrition Research Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -815,7 +815,7 @@
         "lng": -121.7467509,
         "description": "Restrooms in this academic building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wyatt Pavilion",
+        "name": "Wyatt Pavilion",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -824,7 +824,7 @@
         "lng": -121.7508347,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Animal Science Building",
+        "name": "Animal Science Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -833,7 +833,7 @@
         "lng": -121.7440193,
         "description": "Restrooms in this aquatic facility, clean and designed for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Aquatic Center",
+        "name": "Aquatic Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -842,7 +842,7 @@
         "lng": -121.7485011,
         "description": "Restrooms in this arts facility, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Art Building",
+        "name": "Art Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -851,7 +851,7 @@
         "lng": -121.8048888,
         "description": "Restrooms in this academic building, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Center for Comparative Medicine",
+        "name": "Center for Comparative Medicine",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -860,7 +860,7 @@
         "lng": -121.7470306,
         "description": "Restrooms in this research building, clean and accessible for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Environmental Horticulture",
+        "name": "Environmental Horticulture",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -869,7 +869,7 @@
         "lng": -121.7507937,
         "description": "Restrooms in this administrative building, designed for staff use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Facilities Services Building",
+        "name": "Facilities Services Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -878,7 +878,7 @@
         "lng": -121.7650717,
         "description": "Restrooms in this academic building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Genome and Biomedical Sciences Facility",
+        "name": "Genome and Biomedical Sciences Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -887,7 +887,7 @@
         "lng": -121.752798,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Horticulture Field House",
+        "name": "Horticulture Field House",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -896,7 +896,7 @@
         "lng": -121.7504906,
         "description": "Restrooms in this community facility, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "International House",
+        "name": "International House",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -905,7 +905,7 @@
         "lng": -121.7527485,
         "description": "Restrooms in this academic building, clean and designed for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Mathematical Sciences Building",
+        "name": "Mathematical Sciences Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -914,7 +914,7 @@
         "lng": -121.7538653,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Plant Pathology Building",
+        "name": "Plant Pathology Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -923,7 +923,7 @@
         "lng": -121.755855,
         "description": "Restrooms in this science lecture facility, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Sciences Lecture Hall",
+        "name": "Sciences Lecture Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -932,7 +932,7 @@
         "lng": -121.7462737,
         "description": "Restrooms in this academic building, designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Shields Annex",
+        "name": "Shields Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -941,7 +941,7 @@
         "lng": -121.7545717,
         "description": "Restrooms in this academic building, clean and accessible for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Sprocket Annex",
+        "name": "Sprocket Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -950,7 +950,7 @@
         "lng": -121.7585885,
         "description": "Restrooms in this administrative building, maintained for student and staff use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Transportation and Parking Services",
+        "name": "Transportation and Parking Services",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -959,7 +959,7 @@
         "lng": -121.7654413,
         "description": "Restrooms in this veterinary facility, clean and designed for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Vet Med 3A",
+        "name": "Vet Med 3A",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -968,7 +968,7 @@
         "lng": -121.7621697,
         "description": "Restrooms in this veterinary facility, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Vet Med 3B",
+        "name": "Vet Med 3B",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -977,7 +977,7 @@
         "lng": -121.7571351,
         "description": "Restrooms in this academic building, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "West Hall",
+        "name": "West Hall",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -986,7 +986,7 @@
         "lng": -121.7723533,
         "description": "Restrooms in this agricultural research building, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Western Center for Agricultural Equipment",
+        "name": "Western Center for Agricultural Equipment",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -995,7 +995,7 @@
         "lng": -121.7644091,
         "description": "Restrooms in this agricultural research facility, clean and accessible.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Agricultural Field Station",
+        "name": "Agricultural Field Station",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1004,7 +1004,7 @@
         "lng": -121.7507874,
         "description": "Restrooms in this aquatic research facility, maintained for researchers.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Aquatic Weed Research Facility",
+        "name": "Aquatic Weed Research Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1013,7 +1013,7 @@
         "lng": -121.7472349,
         "description": "Restrooms in this administrative building, clean and accessible for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Arboretum Headquarters",
+        "name": "Arboretum Headquarters",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1022,7 +1022,7 @@
         "lng": -121.7888411,
         "description": "Restrooms in this research facility, functional for lab use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Bee Biology Facility",
+        "name": "Bee Biology Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1031,7 +1031,7 @@
         "lng": -121.7336205,
         "description": "Restrooms in this research facility, accessible for student and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Center for Neuroscience",
+        "name": "Center for Neuroscience",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1040,7 +1040,7 @@
         "lng": -121.7504995,
         "description": "Restrooms in this science building, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Chemistry Annex",
+        "name": "Chemistry Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1049,7 +1049,7 @@
         "lng": -121.7662045,
         "description": "Restrooms in this equine facility, clean and designed for students.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Equine Center",
+        "name": "Equine Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1058,7 +1058,7 @@
         "lng": -121.7459699,
         "description": "Restrooms in this research facility, accessible for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Greenhouse Complex B",
+        "name": "Greenhouse Complex B",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1067,7 +1067,7 @@
         "lng": -121.7546016,
         "description": "Restrooms in this community facility, clean and designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "International Center",
+        "name": "International Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1076,7 +1076,7 @@
         "lng": -121.765171,
         "description": "Restrooms in this residential facility, clean and accessible for residents.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Orchard Park",
+        "name": "Orchard Park",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1085,7 +1085,7 @@
         "lng": -121.7512762,
         "description": "Restrooms in this academic building, designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Physics Building",
+        "name": "Physics Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1094,7 +1094,7 @@
         "lng": -121.7526175,
         "description": "Restrooms in this research facility, functional for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Raptor Center",
+        "name": "Raptor Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1103,7 +1103,7 @@
         "lng": -121.7522713,
         "description": "Restrooms in this academic building, maintained for student and faculty use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Robbins Annex",
+        "name": "Robbins Annex",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1112,7 +1112,7 @@
         "lng": -121.7528626,
         "description": "Restrooms in this academic building, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "South Silo",
+        "name": "South Silo",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1121,7 +1121,7 @@
         "lng": -121.7884727,
         "description": "Restrooms in this agricultural facility, maintained for staff.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Swine Facility",
+        "name": "Swine Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1130,7 +1130,7 @@
         "lng": -121.7712343,
         "description": "Restrooms in this academic building, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Transportation Studies Building",
+        "name": "Transportation Studies Building",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1139,7 +1139,7 @@
         "lng": -121.7623445,
         "description": "Restrooms in this research facility, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Wildlife Health Center",
+        "name": "Wildlife Health Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1148,7 +1148,7 @@
         "lng": -121.7483197,
         "description": "Restrooms in this academic building, accessible for students and faculty.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Women's Resources and Research Center",
+        "name": "Women's Resources and Research Center",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1157,7 +1157,7 @@
         "lng": -121.7448939,
         "description": "Restrooms in this academic building, designed for student use.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Center for Child and Family Studies",
+        "name": "Center for Child and Family Studies",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1166,7 +1166,7 @@
         "lng": -121.7565904,
         "description": "Restrooms in this research facility, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Center for Health and Environment",
+        "name": "Center for Health and Environment",
         "timestamp": "2025-06-11T08:18:00Z"
     },
     {
@@ -1175,7 +1175,7 @@
         "lng": -121.7588892,
         "description": "Restrooms in this research facility, maintained for lab personnel.",
         "creator-email": "admin@restroomreview.com",
-        "building-name": "Dairy Research Facility",
+        "name": "Dairy Research Facility",
         "timestamp": "2025-06-11T08:18:00Z"
     }
 ]

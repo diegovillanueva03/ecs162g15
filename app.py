@@ -37,6 +37,14 @@ db = MONGO_CLIENT["restroom_review"]
 LOCATIONS_COLLECTION = db["locations"]
 REVIEWS_COLLECTION = db["reviews"]
 
+LOCATIONS_COLLECTION.delete_many({})
+REVIEWS_COLLECTION.delete_many({})
+if LOCATIONS_COLLECTION.count_documents({}) == 0 and REVIEWS_COLLECTION.count_documents({}) == 0:
+    with open('seed/locations.json', 'r') as f:
+        LOCATIONS_COLLECTION.insert_many(json.load(f))
+    with open('seed/reviews.json', 'r') as f:
+        REVIEWS_COLLECTION.insert_many(json.load(f))
+
 OAUTH = OAuth(app)
 NONCE = generate_token()
 
