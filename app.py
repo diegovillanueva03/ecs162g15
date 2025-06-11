@@ -108,82 +108,99 @@ def get_user():
         return jsonify(user)
     return jsonify({"error": "Unauthorized"}), 401
 
+def perform_authorized_action(action):
+    user = session.get('user')
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+    email = user.get("email")
+    username = user.get("username")
+
+    try:
+        return action(email, username)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/add-restroom-location', methods=['POST'])
 def add_restroom_location():
-    user = session.get('user')
-    if not user:
-        return jsonify({'error': 'Unauthorized'}), 401
-    email = user.get("email")
+    def action(email, username):
+         data = request.get_json()
+         lat = data.get("lat")
+         lng = data.get("lng")
+         name = data.get("name")
+         description = data.get("description")
 
+         if not lat or not lng or not name or not description:
+             return jsonify({'error': 'Missing or malformed data'}), 400
 
-    try:
-        data = request.get_json()
-        lat = data.get("lat")
-        lng = data.get("lng")
-        name = data.get("name")
-        description = data.get("description")
+         location = {
+             "lat": lat,
+             "lng": lng,
+             "name": name,
+             "description": description,
+             "creator-email": email,
+             "timestamp": datetime.now(timezone.utc)
+         }
+         result = LOCATIONS_COLLECTION.insert_one(location)
+         location['_id'] = str(result.inserted_id)
+         return jsonify(location), 201
+    return perform_authorized_action(action)
 
-        if not lat or not lng or not description or not name:
-            return jsonify({'error': 'Missing headline, content, name, or description'}), 400
-
-        location = {
-            "lat": lat,
-            "lng": lng,
-            "description": description,
-            "creator-email": email,
-            "building-name": name,
-            "timestamp": datetime.now(timezone.utc)
-        }
-        result = LOCATIONS_COLLECTION.insert_one(location)
-        location['_id'] = str(result.inserted_id)
-        return jsonify(location), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
+@app.route('/add-restroom-review', methods=['POST'])
 def add_restroom_review():
-    user = session.get('user')
-    if not user:
-        return jsonify({'error': 'Unauthorized'}), 401
-    email = user.get("email")
+    def action(email, username):
+         data = request.get_json()
+         restroomid = data.get("restroomid")
+         rating = data.get("rating")
+         content = data.get("content")
 
-    try:
-        data = request.get_json()
-        locationid = data.get("locationid")
-        username = data.get("username")
-        rating = data.get("rating")
-        content = data.get("content")
+         if not restroomid or not rating or not content:
+             return jsonify({'error': 'Missing id, rating, or content'}), 400
 
-        if not rating or not content:
-            return jsonify({'error': 'Missing rating or content'}), 400
+         document = {
+             "restroomid": restroomid,
+             "rating": rating,
+             "content": content,
+             "username": username,
+             "creator-email": email,
+             "timestamp": datetime.now(timezone.utc)
+         }
+         result = REVIEWS_COLLECTION.insert_one(document)
+         document['_id'] = str(result.inserted_id)
+         return jsonify(document), 201
+    return perform_authorized_action(action)
 
-        review = {
-            "locationid": locationid,
-            "username": username,
-            "rating": rating,
-            "content": content,
-            "creator-email": email,
-            "timestamp": datetime.now(timezone.utc)
-        }
-        result = REVIEWS_COLLECTION.insert_one(review)
-        review['_id'] = str(result.inserted_id)
-        return jsonify(review), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+@app.route('/remove-restroom/<restroom_id>', methods=['POST'])
+def remove_restroom_location(restroom_id):
+    def action(email, username):
+        restroom = LOCATIONS_COLLECTION.find_one({'_id': ObjectId(restroom_id)})
+        if not restroom:
+                    return jsonify({'error': 'Restroom not found'}), 404
+        creator = restroom["creator-email"]
+        if creator:
+            if email != creator and username != "moderator" and username != "admin":
+                return jsonify({'error': 'Unauthorized'}), 401
+        LOCATIONS_COLLECTION.delete_one({'_id': ObjectId(restroom_id)})
+        REVIEWS_COLLECTION.delete_many({'restroomid': restroom_id})
+        restroom['_id'] = str(restroom['_id'])
+        return jsonify(restroom), 200
+    return perform_authorized_action(action)
 
-@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
-def remove_restroom_location():
-    # TODO: Remove restroom location and all associated reviews
-    pass
+@app.route('/remove-restroom_review/<review_id>', methods=['POST'])
+def remove_restroom_review(review_id):
+    def action(email, username):
+        review = REVIEWS_COLLECTION.find_one({'_id': ObjectId(review_id)})
+        if not review:
+            return jsonify({'error': 'Review not found'}), 404
+        creator = review["creator-email"]
+        if creator:
+            if email != creator and username != "moderator" and username != "admin":
+                return jsonify({'error': 'Unauthorized'}), 401
+        REVIEWS_COLLECTION.delete_one({'_id': ObjectId(review_id)})
+        review['_id'] = str(review['_id'])
+        return jsonify(review), 200
+    return perform_authorized_action(action)
 
-
-@app.route('/add-restroom-review/<restroom_id>', methods=['POST'])
-def remove_restroom_review():
-    # TODO: Remove restroom review either as a moderator
-    #  or unprivileged user (Can only remove their review)
-    pass
-
-@app.route('/restroom-locations', methods=['GET'])
+@app.route('/restroom-locations')
 def get_restroom_locations():
     try:
         locations = list(LOCATIONS_COLLECTION.find({}))
@@ -193,12 +210,26 @@ def get_restroom_locations():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/restroom', methods=['GET'])
+def get_restroom():
+    data = request.get_json()
+    lat = data.get("lat")
+    lng = data.get("lng")
+    name = data.get("name")
+    try:
+        restroom = LOCATIONS_COLLECTION.find_one({'lat': lat, 'lng': lng,'name': name})
+        if not restroom:
+            return "Not found", 404
+        return redirect('/restroom/' + str(restroom['_id']))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/restroom/<restroom_id>', methods=['GET'])
 def view_restroom(restroom_id):
     try:
         obj_id = ObjectId(restroom_id)
         restroom = LOCATIONS_COLLECTION.find_one({'_id': obj_id})
-        reviews = list(REVIEWS_COLLECTION.find({'locationid': restroom_id}))
+        reviews = list(REVIEWS_COLLECTION.find({'restroomid': restroom_id}))
         if restroom:
             restroom['_id'] = str(restroom['_id'])
             for r in reviews:
@@ -208,7 +239,7 @@ def view_restroom(restroom_id):
     except InvalidId:
         return "Invalid ID", 400
 
-@app.route('/new-restroom-sidebar')
+@app.route('/new-restroom-sidebar/<restroom_id>')
 def new_restroom_sidebar():
     return render_template('new_restroom.j2')  # or .html if you're using plain HTML
 
