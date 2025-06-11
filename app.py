@@ -158,8 +158,8 @@ def add_restroom_review():
     def action(email, username):
          data = request.get_json()
          restroomid = data.get("restroomid")
-         rating = data.get("rating")
          content = data.get("content")
+         rating = data.get("rating")
 
          if not restroomid or not rating or not content:
              return jsonify({'error': 'Missing id, rating, or content'}), 400
