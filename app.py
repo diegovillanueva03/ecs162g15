@@ -248,7 +248,7 @@ def view_restroom(restroom_id):
     except InvalidId:
         return "Invalid ID", 400
 
-@app.route('/new-restroom-sidebar/<restroom_id>')
+@app.route('/new-restroom-sidebar')
 def new_restroom_sidebar():
     return render_template('new_restroom.j2')
 

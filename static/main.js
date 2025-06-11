@@ -434,6 +434,7 @@ function addNewRestroomMarker(loc) {
         .then(res => res.text())
         .then(html => {
             sidebar.innerHTML = html;
+            console.log("Sidebar element:", sidebar);
 
             document.getElementById("submit-restroom").addEventListener("click", async () => {
                 const description = document.getElementById("restroom-description").value;

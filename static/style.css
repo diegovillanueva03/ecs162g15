@@ -82,7 +82,7 @@ input::placeholder {
 }
 
 #logout-button:hover {
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 #dropdown {
@@ -109,7 +109,9 @@ input::placeholder {
     border-color: #10104b;
 }
 
-main, body, html {
+main,
+body,
+html {
     height: 100%;
 }
 
@@ -168,7 +170,7 @@ main, body, html {
     max-width: 450px;
     height: 100%;
     background: #f9f9f9;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease;
     padding: 20px;
     z-index: 1000;
@@ -184,10 +186,136 @@ main, body, html {
     cursor: pointer;
 }
 
-.open-sb-btn{
+.open-sb-btn {
     padding: 5;
 }
 
 body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h1#restroom-name {
+    color: #003882;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+
+#restroom-image {
+    max-width: 400px;
+    border: 2px solid #003882;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#restroom-submitter {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    color: #003882;
+    margin-bottom: 25px;
+}
+
+#reviews-list {
+    list-style-type: none;
+    padding-left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.95rem;
+    color: #003882;
+    margin-bottom: 30px;
+}
+
+#reviews-list li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #003882;
+    padding-bottom: 8px;
+}
+
+#review-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    gap: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#review-content {
+    resize: vertical;
+    min-height: 80px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1.5px solid #003882;
+    border-radius: 5px;
+    color: #003882;
+}
+
+#review-rating {
+    width: 60px;
+    padding: 6px;
+    font-size: 1rem;
+    border: 1.5px solid #003882;
+    border-radius: 5px;
+    color: #003882;
+}
+
+#submit-review {
+    color: white;
+    background-color: #003882;
+    border: solid #003882 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    max-width: 150px;
+}
+
+#add-restroom-form {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #003882;
+}
+
+#add-restroom-form h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #003882;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+    color: #003882;
+}
+
+#restroom-name,
+#restroom-description {
+    resize: vertical;
+    min-height: 60px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1.5px solid #003882;
+    border-radius: 5px;
+    color: #003882;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#submit-restroom {
+    color: white;
+    background-color: #003882;
+    border: solid #003882 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    max-width: 150px;
+    padding: 8px 12px;
+}
+
+#review-error-msg {
+    color: red;
+    display: none;
+    margin-top: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
