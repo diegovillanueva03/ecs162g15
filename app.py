@@ -186,7 +186,7 @@ def remove_restroom_location(restroom_id):
                 return jsonify({'error': 'Restroom not found'}), 404
 
         creator = restroom.get("creator-email")
-        if creator and email != "admin@mail.com" and email != "mod@mail.com" email !=  email != creator and username not in ["moderador", "admin"]:
+        if creator and email != "admin@mail.com" and email != "mod@mail.com" and email != creator and username not in ["moderator", "admin"]:
             return jsonify({'error': 'Unauthorized'}), 401
 
         LOCATIONS_COLLECTION.delete_one({'_id': ObjectId(restroom_id)})
@@ -208,7 +208,7 @@ def remove_restroom_review(review_id):
             return jsonify({'error': 'Review not found'}), 404
 
         creator = review.get("creator-email")
-        if creator and email != "admin@mail.com" and email != "mod@mail.com" email !=  email != creator and username not in ["moderador", "admin"]:
+        if creator and email != "admin@mail.com" and email != "mod@mail.com" and email != creator and username not in ["moderator", "admin"]:
             return jsonify({'error': 'Unauthorized'}), 401
 
         REVIEWS_COLLECTION.delete_one({'_id': oid})
