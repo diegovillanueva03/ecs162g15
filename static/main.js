@@ -184,7 +184,7 @@ async function getBuildingName(lat, lng) {
         //Set center to current location if available and zoom.
         //Also marks current location with an Apple Maps-like circle
         initCurrentLocation();
-
+        
         fetch('/restroom-locations')
             .then(res => res.json())
             .then(data => {
@@ -210,7 +210,7 @@ async function getBuildingName(lat, lng) {
                 document.getElementById("account-sidebar").classList.add("show");
                 document.getElementById("user-email").textContent = `${user.email}`;
             })
-        };
+        }
 
         //close marker popup when sidebar is closed
         document.getElementById("close-sidebar").addEventListener("click", () => {
@@ -227,32 +227,61 @@ async function getBuildingName(lat, lng) {
             });
         }
 
-        const logoutButton = document.getElementById("logout-button");
-        if (logoutButton) {
-            logoutButton.addEventListener("click", () => {
-                window.location.href = "/logout";
-            });
-        }
-
-        const account_button = document.getElementById("account");
-        const dropdown = document.getElementById("dropdown");
-        const carat = document.getElementById("carat");
-        if (account_button) {
-            account_button.addEventListener("click", () => {
-                if (dropdown.style.visibility == 'hidden') {
-                    dropdown.style.visibility = 'visible';
-                    carat.src = "../static/images/up_carat.png";
-                } else {
-                    dropdown.style.visibility = 'hidden';
-                    carat.src = "../static/images/down_carat.png"
-                }
+        fetch('/user')
+            .then(response => {
+                if (response.ok) return response.json();
+                throw new Error('Not logged in');
             })
-        }
+            .then(user => {
+                //logged in
+                const right_corner = document.getElementById("account-dropdown");
+                const login_container = document.getElementById("login-container");
 
-        const right_corner = document.getElementById("account-dropdown");
-        if(!user.email) {
-            right_corner.innerHTML = '<button id="login-button" class="button">LOG IN</button>';
-        }
+                if (login_container) login_container.style.display = "none";
+
+                right_corner.style.display = "inline-block";
+                right_corner.innerHTML = `
+                    <button id="account" class="button">Account <img src="../static/images/down_carat.png" alt="down carat" id="carat"></button>
+                    <div id="dropdown" style="visibility: hidden;">
+                        <div id="account-name" class="drop-option">${user.email}</div>
+                        <button id="logout-button" class="button">Log Out</button>
+                    </div>
+                `;
+
+                const account_button = document.getElementById("account");
+                const dropdown = document.getElementById("dropdown");
+                const carat = document.getElementById("carat");
+
+                account_button.addEventListener("click", () => {
+                    if (dropdown.style.visibility === 'hidden') {
+                        dropdown.style.visibility = 'visible';
+                        carat.src = "../static/images/up_carat.png";
+                    } else {
+                        dropdown.style.visibility = 'hidden';
+                        carat.src = "../static/images/down_carat.png";
+                    }
+                });
+
+                const logout_button = document.getElementById("logout-button");
+                logout_button.addEventListener("click", () => {
+                    window.location.href = "/logout";
+                });
+
+            })
+            .catch(() => {
+                //not logged in
+                const right_corner = document.getElementById("account-dropdown");
+                const login_container = document.getElementById("login-container");
+
+                right_corner.style.display = "none";
+                if (login_container) {
+                    login_container.style.display = "inline-block";
+                    const login_button = document.getElementById("login-button");
+                    login_button.addEventListener("click", () => {
+                        window.location.href = "/login";
+                    });
+                }
+            });
     }
 })();
 
