@@ -180,7 +180,8 @@ def add_restroom_review():
 @app.route('/remove-restroom/<restroom_id>', methods=['POST'])
 def remove_restroom_location(restroom_id):
     def action(email, username):
-        restroom = LOCATIONS_COLLECTION.find_one({'_id': ObjectId(restroom_id)})
+        oid = ObjectId(restroom_id)
+        restroom = LOCATIONS_COLLECTION.find_one({'_id': oid}) or LOCATIONS_COLLECTION.find_one({'_id': restroom_id})
         if not restroom:
                     return jsonify({'error': 'Restroom not found'}), 404
         creator = restroom["creator-email"]
@@ -196,7 +197,8 @@ def remove_restroom_location(restroom_id):
 @app.route('/remove-restroom_review/<review_id>', methods=['POST'])
 def remove_restroom_review(review_id):
     def action(email, username):
-        review = REVIEWS_COLLECTION.find_one({'_id': ObjectId(review_id)})
+        oid = ObjectId(review_id)
+        review = REVIEWS_COLLECTION.find_one({'_id': ObjectId(review_id)}) or REVIEWS_COLLECTION.find_one({'_id': ObjectId(oid)})
         if not review:
             return jsonify({'error': 'Review not found'}), 404
         creator = review["creator-email"]

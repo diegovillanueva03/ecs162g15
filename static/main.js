@@ -183,9 +183,12 @@ function addRestroomMarker(loc, isNew = false) {
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById("account-sidebar").innerHTML = html;
-                    console.log(loc._id);
-                    console.log(html);
-                    addReview();
+
+                    setTimeout(() => {
+                        addReview(loc._id);
+                        attachReviewDelete();
+                        attachLocationDelete();
+                    }, 0);
                 })
                 .catch(err => {
                     console.error("Failed to load sidebar:", err);
@@ -204,11 +207,15 @@ function addRestroomMarker(loc, isNew = false) {
     return marker;
 }
 
-function addReview() {
+function addReview(restroomId) {
+
+    const submitButton = document.getElementById("submit-review");
+    const newSubmitButton = submitButton.cloneNode(true)
+    submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
+
     document.getElementById("submit-review").addEventListener("click", async () => {
         const content = document.getElementById("review-content").value.trim();  // textarea input
         const rating = parseInt(document.getElementById("review-rating").value); // numeric input or select
-        const restroomid = "{{ restroom._id }}"; // populated by Jinja
 
         const errorMsg = document.getElementById("review-error-msg");
         errorMsg.style.display = "none";
@@ -231,7 +238,7 @@ function addReview() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    restroomid,
+                    restroomid: restroomId,
                     content,
                     rating
                 })
@@ -240,11 +247,16 @@ function addReview() {
             const result = await res.json();
 
             if (res.ok) {
-                fetch(`/restroom/${restroomid}`)
+                fetch(`/restroom/${restroomId}`)
                     .then(res => res.text())
                     .then(html => {
                         document.getElementById("account-sidebar").innerHTML = html;
-                        addReview();
+                        console.log(html)
+                        setTimeout(() => {
+                            addReview(restroomId);
+                            attachReviewDelete();
+                            attachLocationDelete();
+                        }, 0);
                     })
                     .catch(err => {
                         console.error("Failed to load sidebar:", err);
@@ -471,6 +483,79 @@ function addNewRestroomMarker(loc) {
             sidebar.innerHTML = "<p>Error loading form.</p>";
         });
 }
+
+
+function deleteReview(reviewId) {
+    fetch(`/remove-restroom_review/${reviewId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                return response.json().then(err => {
+                    alert('Failed to del rev: ' + err.error);
+                });
+            }
+        })
+        .catch(error => {
+            alert('Error del review: ' + error);
+        });
+}
+
+function deleteLocation(restroomId) {
+    fetch(`/remove-restroom/${restroomId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => {
+            if (response.ok) {
+                closeReviewSidebar()
+                location.reload();
+            } else {
+                return response.json().then(err => {
+                    alert('Failed to del restroom: ' + err.error);
+                });
+            }
+        })
+        .catch(error => {
+            alert('Error del restroom: ' + error);
+        });
+}
+
+function attachReviewDelete() {
+    const reviewDeleteButtons = document.querySelectorAll('.review-delete');
+    reviewDeleteButtons.forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+            const reviewId = newBtn.dataset.reviewId;  // Use newBtn instead of btn
+            if (reviewId && confirm('Delete this review?')) {
+                deleteReview(reviewId);
+            }
+        });
+    });
+}
+
+function attachLocationDelete() {
+    const locationDeleteButtons = document.querySelectorAll('.location-delete');
+
+    locationDeleteButtons.forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+            const restroomId = newBtn.dataset.restroomId;  // Use newBtn instead of btn
+            if (restroomId && confirm('Delete this restroom?')) {
+                deleteLocation(restroomId);
+            }
+        });
+    });
+}
+
 
 
 
