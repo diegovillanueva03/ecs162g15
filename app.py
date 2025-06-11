@@ -183,11 +183,12 @@ def remove_restroom_location(restroom_id):
         oid = ObjectId(restroom_id)
         restroom = LOCATIONS_COLLECTION.find_one({'_id': oid}) or LOCATIONS_COLLECTION.find_one({'_id': restroom_id})
         if not restroom:
-                    return jsonify({'error': 'Restroom not found'}), 404
-        creator = restroom["creator-email"]
-        if creator:
-            if email != creator and username != "moderator" and username != "admin":
-                return jsonify({'error': 'Unauthorized'}), 401
+                return jsonify({'error': 'Restroom not found'}), 404
+
+        creator = restroom.get("creator-email")
+        if creator and email != "admin@mail.com" and email != "mod@mail.com" email !=  email != creator and username not in ["moderador", "admin"]:
+            return jsonify({'error': 'Unauthorized'}), 401
+
         LOCATIONS_COLLECTION.delete_one({'_id': ObjectId(restroom_id)})
         REVIEWS_COLLECTION.delete_many({'restroomid': restroom_id})
         restroom['_id'] = str(restroom['_id'])
@@ -197,15 +198,20 @@ def remove_restroom_location(restroom_id):
 @app.route('/remove-restroom_review/<review_id>', methods=['POST'])
 def remove_restroom_review(review_id):
     def action(email, username):
-        oid = ObjectId(review_id)
-        review = REVIEWS_COLLECTION.find_one({'_id': ObjectId(review_id)}) or REVIEWS_COLLECTION.find_one({'_id': ObjectId(oid)})
+        try:
+            oid = ObjectId(review_id)
+            review = REVIEWS_COLLECTION.find_one({'_id': oid}) or REVIEWS_COLLECTION.find_one({'_id': review_id})
+        except InvalidId:
+            return jsonify({'error': 'Invalid review ID'}), 400
+
         if not review:
             return jsonify({'error': 'Review not found'}), 404
-        creator = review["creator-email"]
-        if creator:
-            if email != creator and username != "moderator" and username != "admin":
-                return jsonify({'error': 'Unauthorized'}), 401
-        REVIEWS_COLLECTION.delete_one({'_id': ObjectId(review_id)})
+
+        creator = review.get("creator-email")
+        if creator and email != "admin@mail.com" and email != "mod@mail.com" email !=  email != creator and username not in ["moderador", "admin"]:
+            return jsonify({'error': 'Unauthorized'}), 401
+
+        REVIEWS_COLLECTION.delete_one({'_id': oid})
         review['_id'] = str(review['_id'])
         return jsonify(review), 200
     return perform_authorized_action(action)
