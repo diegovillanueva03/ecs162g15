@@ -192,6 +192,22 @@ def get_restroom_locations():
         return jsonify(locations)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/get-restroom-reviews/<restroom_id>', methods=['GET'])
+def get_restroom_reviews(restroom_id):
+    try:
+        reviews_cursor = REVIEWS_COLLECTION.find({"locationid":restroom_id})
+
+        review_list = []
+        for review in reviews_cursor:
+            review['_id'] = str(review['_id'])
+            if isinstance(review.get('locationid'), ObjectId):
+                review['locationid'] = str(review['locationid'])
+            review_list.append(review)
+        return jsonify(review_list), 200
+    
+    except InvalidId:
+        return "Invalid Id", 400
 
 @app.route('/restroom/<restroom_id>', methods=['GET'])
 def view_restroom(restroom_id):
