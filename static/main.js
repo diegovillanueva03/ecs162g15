@@ -561,6 +561,9 @@ function attachLocationDelete() {
 
 if (typeof module !== 'undefined') {
     module.exports = {
-        // Functions to test here
+        openReviewSidebar,
+        closeReviewSidebar,
+        initMap,
+        loadCurrentCoordinates
     };
 }
