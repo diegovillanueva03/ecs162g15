@@ -34,7 +34,7 @@ app.secret_key = os.urandom(24)
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongo:27017")
 MONGO_CLIENT = MongoClient(MONGO_URI)
 db = MONGO_CLIENT["restroom_review"]
-LOCATIONS_COLLECTION = db["restrooms"]
+LOCATIONS_COLLECTION = db["locations"]
 REVIEWS_COLLECTION = db["reviews"]
 
 OAUTH = OAuth(app)
@@ -209,6 +209,22 @@ def get_restroom_locations():
         return jsonify(locations)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/get-restroom-reviews/<restroom_id>', methods=['GET'])
+def get_restroom_reviews(restroom_id):
+    try:
+        reviews_cursor = REVIEWS_COLLECTION.find({"locationid":restroom_id})
+
+        review_list = []
+        for review in reviews_cursor:
+            review['_id'] = str(review['_id'])
+            if isinstance(review.get('locationid'), ObjectId):
+                review['locationid'] = str(review['locationid'])
+            review_list.append(review)
+        return jsonify(review_list), 200
+    
+    except InvalidId:
+        return "Invalid Id", 400
 
 @app.route('/restroom', methods=['GET'])
 def get_restroom():
@@ -241,8 +257,7 @@ def view_restroom(restroom_id):
 
 @app.route('/new-restroom-sidebar/<restroom_id>')
 def new_restroom_sidebar():
-    return render_template('new_restroom.j2')  # or .html if you're using plain HTML
-
+    return render_template('new_restroom.j2')
 
 
 if __name__ == '__main__':

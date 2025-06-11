@@ -18,6 +18,84 @@ let map;
 let location_dot;
 let restroom_markers = [];
 
+const accountSidebar = document.getElementById('account-sidebar');
+const userReviewSection = document.getElementById('user-review-section');
+const locationNameElement = document.getElementById('location-name');
+
+// sidebar functions
+function openReviewSidebar(){
+    if(accountSidebar){
+        accountSidebar.classList.add('show');
+    }
+}
+
+function closeReviewSidebar(){
+    if (accountSidebar){
+        accountSidebar.classList.remove('show');
+        if(userReviewSection){
+            userReviewSection.innerHTML = ''; //clear the review section
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const closeSidebarBtn = document.getElementById('close-sidebar');
+    if(closeSidebarBtn){
+        closeSidebarBtn.addEventListener('click', closeReviewSidebar);
+    }
+});
+
+//get reviews for retroom location
+async function fetchReviews(restroomId, buildingName){
+    if(!userReviewSection){
+        console.error('error');
+        return;
+    }
+
+    //loading message
+    userReviewSection.innerHTML = '<h3>Loading Reviews...</h3>';
+
+    //update location name 
+    if(locationNameElement){
+        locationNameElement.textContent = buildingName;
+    }
+
+    openReviewSidebar();
+
+    try{
+        const response = await fetch(`/get-restroom-reviews/${restroomId}`);
+        if(!response.ok){
+            throw new Error(`Error: ${response.status}`);
+        }
+        const reviews = await response.json();
+
+        userReviewSection.innerHTML = '';
+
+        if (reviews.length == 0){
+            userReviewSection.innerHTML = '<p>Not reviews yet.</p>';
+        } else {
+            reviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'bg-white';
+
+                const reviewDate = new Date(review.timestamp.$date || review.timestamp);
+                
+                reviewElement.innerHTML = 
+                `
+                <p>${review.username || 'Jane Doe'}</p>
+                <p><span>${'★'.repeat(review.rating)}</span></p>
+                <p>${review.content}</p>
+                <p>${reviewDate.toLocaleDateString()}</p>
+                `;
+                userReviewSection.appendChild(reviewElement);
+            });
+        }
+    } catch (error){
+        console.error('Error fetching reviews.');
+        userReviewSection.innerHTML = `<p>${error.message}</p>`;
+    }
+}
+
 function initMap(origin, zoom) {
     if (map == null) {
         map = L.map('map', {
@@ -68,6 +146,8 @@ function initCurrentLocation() {
 
 function addRestroomMarker(loc, isNew = false) {
     const coords = [loc.lat, loc.lng]
+    const restroomId = loc._id;
+
     for (let m of restroom_markers) {
         let latLng = m.getLatLng();
         if (latLng.equals(coords))
@@ -78,17 +158,20 @@ function addRestroomMarker(loc, isNew = false) {
         riseOnHover: true,
     }).addTo(map);
 
+    marker._restroomId = restroomId;
+    marker._buildingName = 'Loading...';
     restroom_markers.push(marker);
 
     const { lat, lng } = coords;
 
     marker.bindPopup('<header>Loading building name...</header>').openPopup();
 
-    //open sidebar when marker is clicked
-    const sidebar = document.getElementById("account-sidebar");
-    if (sidebar && !sidebar.classList.contains("show")) {
-        sidebar.classList.add("show");
-    }
+    // //open sidebar when marker is clicked
+    // const sidebar = document.getElementById("account-sidebar");
+    // if (sidebar && !sidebar.classList.contains("show")) {
+    //     sidebar.classList.add("show");
+    // }
+    openReviewSidebar(); //maybe fix, bc will open without reviews
 
     if (!isNew && loc._id) {
         marker.on('popupopen', () => {
@@ -96,7 +179,7 @@ function addRestroomMarker(loc, isNew = false) {
                 sidebar.classList.add("show");
             }
 
-            fetch(`/restroom/${loc._id}/sidebar`)
+            fetch(`/restroom/${loc._id}`)
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById("account-sidebar").innerHTML = html;
@@ -110,18 +193,40 @@ function addRestroomMarker(loc, isNew = false) {
 
     //close sidebar when popup is closed
     marker.on('popupclose', () => {
-        document.getElementById("account-sidebar").classList.remove("show");
+        closeReviewSidebar();
     });
 
-    getBuildingName(loc.lat, loc.lng).then(({ name, popupText }) => {
+    getBuildingName(loc.lat, loc.lng, restroomId).then(({ name, popupText }) => {
         marker.name = name;
         marker.setPopupContent(popupText);
+        const buildingName = name;
+        marker._buildingName = buildingName;
+
+        if(locationNameElement){
+            locationNameElement.textContent = buildingName;
+        }
+
+        const popupContent = `
+            ${popupText}
+            <button id="seeReviewsBtn_${restroomId}">See Reviews</button>
+        `;
+
+        marker.setPopupContent(popupContent)
+            .on('popupopen', function() {
+                const seeReviewsBtn = document.getElementById(`seeReviewsBtn_${restroomId}`);
+                if(seeReviewsBtn){
+                    seeReviewsBtn.onclick = () => {
+                        fetchReviews(restroomId, buildingName);
+                    };
+                }
+                openReviewSidebar();
+                fetchReviews(restroomId, buildingName);
+            });
+            marker.openPopup();
     }).catch(err => {
         console.error("Error getting building name:", err);
         marker.setPopupContent("<header>Error retrieving building name</header>");
     });
-
-
 
     return marker;
 }
@@ -159,9 +264,9 @@ async function getBuildingName(lat, lng) {
                 //get building/place name
                 const name = closestElement?.tags?.name
                     || closestElement?.tags?.place;
-                
-                popupText = `<header>${name}</header>
-                         <p>Rating: 0/5<br/>Reviews:</p>`;
+
+                name = closestElement?.tags?.name || closestElement?.tags?.place || "Unnamed";
+                popupText = `<header>${name}</header><p>Rating: 0/5<br/>Reviews:</p>`;
             } else {
                 popupText = `<header>No name found</header>`;
             }
@@ -172,6 +277,8 @@ async function getBuildingName(lat, lng) {
             return { name: "Error", popupText: "<header>Error retrieving location</header>" };
         });
 }
+
+
 
 (function () {
     window.addEventListener("load", init);
@@ -184,7 +291,7 @@ async function getBuildingName(lat, lng) {
         //Set center to current location if available and zoom.
         //Also marks current location with an Apple Maps-like circle
         initCurrentLocation();
-        
+
         fetch('/restroom-locations')
             .then(res => res.json())
             .then(data => {
@@ -198,8 +305,9 @@ async function getBuildingName(lat, lng) {
                 console.error("Failed to load restrooms:", err);
             });
 
+
         map.on('dblclick', function (e) {
-            addRestroomMarker(e.latlng);
+            addNewRestroomMarker(e.latlng);
             console.log(e.latlng);
         }, true);
 
@@ -210,11 +318,11 @@ async function getBuildingName(lat, lng) {
                 document.getElementById("account-sidebar").classList.add("show");
                 document.getElementById("user-email").textContent = `${user.email}`;
             })
-        }
+        };
 
         //close marker popup when sidebar is closed
         document.getElementById("close-sidebar").addEventListener("click", () => {
-            document.getElementById("account-sidebar").classList.remove("show");
+            closeReviewSidebar();
             if (map) {
                 map.closePopup();
             }
