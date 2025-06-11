@@ -237,7 +237,8 @@ def get_restroom_reviews(restroom_id):
 @app.route('/restroom/<restroom_id>', methods=['GET'])
 def view_restroom(restroom_id):
     try:
-        restroom = LOCATIONS_COLLECTION.find_one({'_id': restroom_id})
+        oid = ObjectId(restroom_id)
+        restroom = LOCATIONS_COLLECTION.find_one({'_id': oid}) or LOCATIONS_COLLECTION.find_one({'_id': restroom_id})
         reviews = list(REVIEWS_COLLECTION.find({'restroomid': restroom_id}))
         if restroom:
             restroom['_id'] = str(restroom['_id'])

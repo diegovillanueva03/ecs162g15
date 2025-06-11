@@ -183,6 +183,8 @@ function addRestroomMarker(loc, isNew = false) {
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById("account-sidebar").innerHTML = html;
+                    console.log(loc._id);
+                    console.log(html);
                     addReview();
                 })
                 .catch(err => {
@@ -452,7 +454,7 @@ function addNewRestroomMarker(loc) {
                     .then(res => res.json())
                     .then(result => {
                         if (result._id) {
-                            addRestroomMarker(result, true);
+                            addRestroomMarker(result);
                             alert("Restroom added successfully.");
                         } else {
                             alert("Error: " + result.error);
