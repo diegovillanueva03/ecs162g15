@@ -4,6 +4,8 @@
 <h2>{{ restroom.description }}</h2>
 <p>Submitted by: {{ restroom["creator-email"] }}</p>
 
+<button class="location-delete" data-restroom-id="{{ restroom._id }}">Delete Restroom</button>
+
 <h2>Leave a Review</h2>
 <form id="review-form">
     <textarea id="review-content" placeholder="Your thoughts..." required></textarea><br>
@@ -13,7 +15,9 @@
 <h2>Reviews</h2>
 <ul>
     {% for r in reviews %}
-    <li><strong>{{ r.username }}</strong>: {{ r.rating }}/5 - {{ r.content }}</li>
+    <li><strong>{{ r.username }}</strong>: {{ r.rating }}/5 - {{ r.content }}
+        <button class="review-delete" data-review-id="{{ r._id }}">Delete Review</button>
+    </li>
     {% endfor %}
 </ul>
 <p id="review-error-msg" style="color: red; display: none;"></p>
