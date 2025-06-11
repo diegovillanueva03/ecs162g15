@@ -324,7 +324,7 @@ function addNewRestroomMarker(loc) {
                     })
                     .catch(err => {
                         console.error("Submit failed:", err);
-                        alert("Faled to submit.");
+                        alert("Failed to submit.");
                     });
             });
         })
