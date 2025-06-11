@@ -34,7 +34,7 @@ app.secret_key = os.urandom(24)
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://mongo:27017")
 MONGO_CLIENT = MongoClient(MONGO_URI)
 db = MONGO_CLIENT["restroom_review"]
-LOCATIONS_COLLECTION = db["restrooms"]
+LOCATIONS_COLLECTION = db["locations"]
 REVIEWS_COLLECTION = db["reviews"]
 
 OAUTH = OAuth(app)
