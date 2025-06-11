@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restroom Review</title>
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""
+    ></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="../static/main.js" defer></script>
+</head>
+<body>
+<header>
+    <div id="header-container">
+        <img src="../static/images/restroom_sign.png" alt="restroom sign" id="sign">
+        <h1>
+            RESTROOM REVIEW
+        </h1>
+        <img src="../static/images/ucd_cow_logo.jpg" alt="UC Davis logo" id="logo">
+    </div>
+    <nav>
+        <div class="left-group">
+            <!--input type="text" placeholder="Search..." class="search-input"-->
+            <!--div id="filter">Filter by:</div-->
+            <!--select class="filter-select"-->
+                <!--option-- value="rating">Rating</option-->
+                <!--option-- value="gender">Gender</option-->
+                <!--option-- value="accesibility">Accessibility</option-->
+                <!--option-- value="Mostreviews">Most Reviews</option-->
+            <!--/select-->
+        </div>
+
+
+        <div id="account-dropdown">
+            <button id="account" class="button">Account <img src="../static/images/down_carat.png" alt="down carat" id="carat"></button>
+            <div id="dropdown">
+                <div id="account-name" class="drop-option">Username</div>
+                <button id="logout-button" class="button">Log Out</button>
+            </div>
+        </div>
+        
+        
+        <div id="login-container">
+            <button id="login-button" class="button">LOG IN</button>
+        </div>
+       
+        
+    </nav>
+</header>
+<main>
+    <div id="map"></div>
+    <div id="account-sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <span id="close-sidebar" class="close-btn">&times;</span>
+            <strong><h1 id="Title">Reviews</h1></strong>
+            <h2 id="location-name">Placeholder Name</h2>
+            <div id="avg-review">
+                <!-- change to connect to database -->
+                <p id="total-review-rating">3.4</p>
+                <div id="ratings">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll1">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll2">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll3">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll4">
+                    <img src="../static/images/toilet_roll_grey.jpg" alt="greyed rating" class="rating-img" id="roll5">
+                </div>
+                <p id="number-of-reviews">5 reviews</p> 
+            </div>
+            
+            <div id="location-image">
+                <img src="./images/ucd graduate school of management.jpg" alt="placeholder image">
+            </div>
+            <div id="cal-review-box">
+                <!-- change to connect to db -->
+                <div id="cleanliness-review">
+                    <h3>Cleanliness</h3>
+                    <p>*****</p>
+                </div>
+                <div id="accessibility-review">
+                    <h3>Accessibility</h3>
+                    <p>*****</p>
+                </div>
+                <div id="location-review">
+                    <h3>Location</h3>
+                    <p>*****</p>
+                </div>
+            </div>
+            <h3 id="community-reviews-title">Community Reviews</h3>
+            <div id="user-review-section">
+                
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer>
+    <hr class="horizontal-line">
+    <div id="bottom-footer">
+        <a src="">Contact Us</a>
+        <a src="">Terms</a>
+        <a src="">Privacy</a>
+        <p>© 2025 Restroom Review</p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+1. What AI tool did you use?
+
+ChatGPT, Grok
+
+2. How did you use it? What kind of questions did you ask? (include links to your conversation if applicable)
+
+We used ChatGPT and Grok for a few things:
+
+A question about Jinja template best practices:
+https://chatgpt.com/share/6847c84d-7890-8005-9b46-8b8ef6c81040
+
+Creating our mongo database (gave it a sample db json format and had it find UCD bathroom locations and create reviews) it was suprisingly bad:
+https://grok.com/share/bGVnYWN5_cf000c88-ad88-44e9-8f67-eb8eb1d8bb71
+
+Creating a script to filter out entries from that DB:
+https://chatgpt.com/share/684949dd-875c-8005-9eae-a6d37b2b878f
+
+
+3. How much did it help you? How helpful and accurate was it?
+
+AI was quite useful for this project. Given time constraints creating a DB of bathroom locations and reviews would have been incredibly time consuming. AI made this smooth(ish). I still had to write a python script to derive lng and lat for every location.

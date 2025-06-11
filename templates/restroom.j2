@@ -1,0 +1,23 @@
+<!-- templates/restroom.html -->
+<h1>{{ restroom.name or "Unnamed Restroom" }}</h1>
+<img src="{{ restroom.image }}" style="max-width:400px">
+<h2>{{ restroom.description }}</h2>
+<p>Submitted by: {{ restroom["creator-email"] }}</p>
+
+<button class="location-delete" data-restroom-id="{{ restroom._id }}">Delete Restroom</button>
+
+<h2>Leave a Review</h2>
+<form id="review-form">
+    <textarea id="review-content" placeholder="Your thoughts..." required></textarea><br>
+    <input type="number" id="review-rating" min="1" max="5" required>
+    <button id="submit-review" type="button">Submit</button>
+</form>
+<h2>Reviews</h2>
+<ul>
+    {% for r in reviews %}
+    <li><strong>{{ r.username }}</strong>: {{ r.rating }}/5 - {{ r.content }}
+        <button class="review-delete" data-review-id="{{ r._id }}">Delete Review</button>
+    </li>
+    {% endfor %}
+</ul>
+<p id="review-error-msg" style="color: red; display: none;"></p>
